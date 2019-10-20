@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pyqt5.com/daemonthread.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/datawidgetmapper.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/ffmpeghls.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/flipwidgetanimation.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/followwindow.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/issignalconnected.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/jumpslider.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/likehtmleffect.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/mselectmenu.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/pageswitching.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/processinclass.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/pyqt5_hook_key.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/pyqt5asyncio.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/pyqt_get_subprocess_pipeline.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/pyqtclient.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/pyqtclientmac.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/python_statemachine.html</loc>
+    <lastmod>2019-10-20</lastmod>
+  </url>  <url>
     <loc>https://pyqt5.com/qtninepatch.html</loc>
     <lastmod>2019-10-20</lastmod>
   </url>  <url>
@@ -59,57 +110,6 @@
     <lastmod>2019-10-20</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/circleimage.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/daemonthread.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/datawidgetmapper.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/ffmpeghls.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/flipwidgetanimation.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/followwindow.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/issignalconnected.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/jumpslider.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/likehtmleffect.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/mselectmenu.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/pageswitching.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/processinclass.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/pyqt5_hook_key.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/pyqt5asyncio.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/pyqt_get_subprocess_pipeline.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/pyqtclient.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/pyqtclientmac.html</loc>
-    <lastmod>2019-10-20</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/python_statemachine.html</loc>
     <lastmod>2019-10-20</lastmod>
   </url>
 </urlset>
