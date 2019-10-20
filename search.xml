@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>PyQt学习心得</title>
+      <link href="/studynotes.html"/>
+      <url>/studynotes.html</url>
+      
+        <content type="html"><![CDATA[<p>在学习PyQt的过程中由于资料的缺乏或者没有中文导致大多数人感叹资料太少，学习困难，又或者急于求进，赶鸭子上架的情况，此时有系统的学习方法很重要。每个人都需要有自己的学习方法，别人的学习方法并不一定适合自己但可以采纳一些。笔者在这里列举了一些当初自己自学的一些心得和方法，希望帮助大家建立一套自己的学习PyQt的方法，提高自身的学习能力。<br><a id="more"></a></p><h2 id="Python基础"><a href="#Python基础" class="headerlink" title="Python基础"></a>Python基础</h2><p>在学习和使用PyQt之前需要熟练使用Python，经过对QQ群里经常提问的问题的分析，发现大部分人对Python中的基础知识掌握不牢固导致很多基础问题，如果要想更好的使用Python以及它的扩展必需要进行系统的学习。这里列举一下常用的知识点。</p><ol><li>类　　　　　　　 　<a href="https://www.runoob.com/python3/python3-class.html" target="_blank" rel="noopener">参考资料</a></li><li>类的继承</li><li>类的多继承</li><li>类方法重写　　　　 <a href="https://www.runoob.com/w3cnote/python-extends-init.html" target="_blank" rel="noopener">参考资料</a></li><li>类中的super函数　　<a href="https://www.runoob.com/python/python-func-super.html" target="_blank" rel="noopener">参考资料</a></li><li>函数调用/参数类型</li><li>对象调用(参考第1点)</li></ol><p>必须熟练掌握上面的知识点后入门PyQt才比较容易，如果初学者对上面的知识点还不是很了解，本文不适合继续往下阅读。</p><h2 id="设计师"><a href="#设计师" class="headerlink" title="设计师"></a>设计师</h2><p>Qt 设计师除了方便快速设计一些简单的界面外，其实笔者觉得更大的作用在于帮助用户熟悉各类控件、属性、信号等</p><ol><li>这里建议初学者不要急于求成，打开设计师新建一个<code>Widget</code>的窗口，比如</li></ol><p><img src="/images/studynotes/desiger_create.png" alt="desiger_create"></p><ol start="2"><li>然后把左侧的所有控件挨个拖动到中间的窗口中，比如这里拖动一个<strong>Push Button</strong>按钮</li></ol><p><img src="/images/studynotes/desiger_drag.png" alt="desiger_drag"></p><ol start="3"><li>在设计师右下角的属性编辑器中列举了该控件的所有父类，意味着可以调用和重写父类的所有方法，建议初学者把这个属性编辑器的所有属性挨个调整看看效果，部分控件可能需要<strong>Ctrl+R</strong>预览界面才能看到，同时像<strong>QListWidget，QTreeWidget，QTableWidget</strong>等某些控件需要在控件上右键增加数据才可以</li></ol><p><img src="/images/studynotes/desiger_property.png" alt="desiger_property"><br><img src="/images/studynotes/desiger_property2.png" alt="desiger_property2"></p><ol start="4"><li>两个控件之间简单的信号槽关联可以通过设计师快速的设置</li></ol><p><img src="/images/studynotes/desiger_signal.png" alt="desiger_signal"><br><img src="/images/studynotes/desiger_signal2.png" alt="desiger_signal2"></p><ol start="5"><li>提高进阶的方法，当你需要手动写代码实现界面的时候，不妨把UI文件转出PY文件，看看是如何构造的（这里涉及到布局等知识见后文）</li></ol><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>Qt界面提供了方便的4种基本布局，<strong>QVboxLayout，QHboxLayout，QFormLayout，QGridLayout</strong>，初学者需要数量掌握这4种布局外加2种拉伸器（占位挤压）</p><p>首先需要知道Qt界面的中控件的层级顺序以及parent，parent的作用既作为子控件的父元素也可以自动管理Qt的对象（具体可以搜索下关于 Qt parent的资料）</p><ol><li>在没有布局的情况下，在设计师中拖动摆放的控件是一层一层的叠加覆盖，此时每个添加的子控件的parent都是最外层的控件</li></ol><p><img src="/images/studynotes/desiger_stack.png" alt="desiger_stack"></p><ol start="2"><li>如果需要界面中的控件自动适应高度宽度，此时则需要使用4种布局来包裹里面的子控件，注意的是：布局不是控件不能设置高度宽度和样式等，是一个抽象的东西，就好比是一根橡皮筋包裹几个矩形的物品；布局也可以设置一些属性（在设计师属性编辑器中），比如设置两者直接的间距，设置距离上下左右的间距，设置比例等</li></ol><p><img src="/images/studynotes/desiger_layout.png" alt="desiger_layout"></p><ol start="3"><li>在没有布局或者有布局的时候。可以添加容器控件（<strong>QWidget，QFrame，QGroupBox，QScrollArea，QToolBox，QTabWidget，QStackedWidget，QMidArea，QDockWidget</strong>）这些容器可以放置子控件，从而循环嵌套。</li></ol><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>在PyQt5.5的时候自带了一个例子文件夹（后面的版本没有的话可以下载PyQt5源码，里面有个examples文件夹），想要熟练的掌握PyQt还需要从自带的例子中学习，必须要每个例子都运行一次然后看看这个例子实现了什么，这样才能记忆深刻。<br>同时很多开发者在<a href="https://github.com/PyQt5/PyQt" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt</a>分享了各类进阶例子，同时也欢迎大家共同完善该项目，提供更多更好的例子。另外也可以下载该项目的客户端<a href="https://github.com/PyQt5/PyQtClient/releases" target="_blank" rel="noopener">PyQtClient</a>软件，支持运行其中的例子</p><p>建议在更深入的学习PyQt之前多看看一些例子。</p><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>接下来要说的就是Qt的api文档，<a href="https://doc.qt.io/qt-5/classes.html" target="_blank" rel="noopener">官网文档</a>，这里其实不要害怕是英文就不想看，觉得看不懂了，其实官网的文档还是比较简洁的，而且函数名也比较直观就能知道意思。也可以用谷歌浏览器打开右键翻译，基本上都能看懂。笔者前期写过一篇<a href="/viewapi.html">如何查阅Qt文档</a>的文档可以阅读学习一番。</p><p>这里就拿<a href="https://doc.qt.io/qt-5/qwebengineview.html" target="_blank" rel="noopener">QWebEngineView</a>举一个例子，首先初学者在使用这个浏览器控件时候，会有诸多的问题比如：Cookie，拦截器等就不知道如何去调用函数来设置</p><ol><li>首先打开官网文档 <a href="https://doc.qt.io/qt-5/qwebengineview.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qwebengineview.html</a>，可以看到只有少量的函数可以调用，寻找一番并没有发现和Cookie相关的东西，这个时候就需要把重点放在有特俗返回值的函数上，比如：<pre><code class="c++">QWebEngineHistory *              history() constQWebEnginePage *              page() constQWebEngineSettings *          settings() const</code></pre></li></ol><p>这三个函数返回了一个类实例，就意味着可以调用其中的方法。</p><ol start="2"><li><p>点击<strong>page()</strong>打开 <a href="https://doc.qt.io/qt-5/qwebenginepage.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qwebenginepage.html</a>，发现没有cookie相关的东西，只有<strong>QWebEngineProfile *    profile() const</strong>这个函数比较可疑。</p></li><li><p>点击<strong>profile()</strong>打开 <a href="https://doc.qt.io/qt-5/qwebengineprofile.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qwebengineprofile.html</a>，在浏览器中搜索<code>cookie</code>发现这个类中包含大量和cookie相关的东西，比如：<strong>QWebEngineCookieStore *    cookieStore()`</strong>从名字上可以猜测大概意思为cookie储存</p></li><li><p>点击<strong>cookieStore()</strong>打开 <a href="https://doc.qt.io/qt-5/qwebenginecookiestore.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qwebenginecookiestore.html</a>，此时就会发现这个类里面包含了删除和设置cookie的方法。</p></li><li><p>但是找到了这些方法后，面对初学者又一个问题来了，该如何去用？根据上面4点整理一下，把他们当做简单的Python对象，方法和操作方法和class一样的。</p></li></ol><pre><code class="python">self.webview = QWebEngineView()# 得到pagepage = self.webview.page()# 得到profileprofile = page.profile()# 得到cookieStorecookieStore = profile.cookieStore()# 清空cookiecookieStore.deleteAllCookies()# 用简短代码来表达就是cookieStore = self.webview.page().profile().cookieStore()cookieStore.deleteAllCookies()</code></pre><h2 id="异常调试"><a href="#异常调试" class="headerlink" title="异常调试"></a>异常调试</h2><p>可能有时候由于粗心，或者调用了一些非法函数，参数错误等会导致程序出现一些异常，首先第一步复制最后一行的错误去百度或者谷歌搜索，大多时候能找到问题所在。其次如果搜索不到或者自己的异常可能是由于某个变量的值不对引起的，就需要在编辑器中打断点使用DEBUG模式调试变量值（如果不会可以采用麻烦一点的办法：用<code>print</code>打印出变量值）</p><p>遇到问题后首先需要自己多调试排查问题，不要一遇到问题就去问，自己多尝试一个一个排查直到找到问题所在并解决，这也是一种提高自身能力的地方。</p><h2 id="检索资料"><a href="#检索资料" class="headerlink" title="检索资料"></a>检索资料</h2><p>作为一个开发人员确实需要具备查阅文档、查询资料等基础技能，会为自己的开发带来很大的帮助，要善于搜索，通过不同的方式去搜索才能找到自己需要的东西。信息检索是每个程序猿必备的能力之一，其好处在于可以更快更准确的在茫茫网络海洋中找到自己所需要的东西，这个过程需要长期不断积累和练习。</p><ol><li>中文搜索引擎：采用多个关键词 以空格分开搜索，如：PyQt 拖拽</li><li>英文搜索引擎：采用多个关键词 以空格分开搜索，如：PyQt Drag Drop</li></ol><h2 id="片尾"><a href="#片尾" class="headerlink" title="片尾"></a>片尾</h2><p>好了，笔者基本上的学习过程就整理如上，这并不是说每个人都适合这样的方法，但至少笔者是这样一步一步走过来的。当你养成了一个学习、发现和解决问题的好习惯时就会慢慢得心应手。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python 状态机模块 　</title>
+      <link href="/python_statemachine.html"/>
+      <url>/python_statemachine.html</url>
+      
+        <content type="html"><![CDATA[<p>用状态来取代if…else判断。</p><a id="more"></a><p>GUI涉及到挺多的状态改变 , 以前一直用 if…else 来判断 , 最近读了设计模式 ,发现有个状态模式 , 随后发现了状态机这个东西 .</p><p>python的状态机模块挺多的 , 不过好像很多都不更新了.<br>推荐2个状态机模块 , 但是也没有太深入的使用经验 , 就跑跑例子 , 以后有更详细的pyqt例子再补上 .</p><p>1: <code>pip install python-statemachine</code></p><p>官方例子 : <a href="https://github.com/fgmacedo/python-statemachine" target="_blank" rel="noopener">https://github.com/fgmacedo/python-statemachine</a></p><p>2.<code>pip install state_machine</code></p><p>官方例子 : <a href="https://github.com/jtushman/state_machine" target="_blank" rel="noopener">https://github.com/jtushman/state_machine</a></p><p>1的 最近一次更新在6个月以前 , 使用<code>类继承</code>和<code>mixin</code>方式 , 不过有些地方不如2个人性化;</p><p>2的设计更人性化一些 , 包括状态改变<code>before</code>和 <code>after</code> , 不过由于是装饰器实现的动态增加属性 , 有些地方编辑器智能提示可能就靠不上了.</p><p>两者实现实现方式不一样 , 有兴趣可以读读源码 .</p><ol start="3"><li>qt内置状态机框架</li></ol><p><a href="https://blog.csdn.net/amnes1a/article/details/62418196" target="_blank" rel="noopener">https://blog.csdn.net/amnes1a/article/details/62418196</a></p><p><a href="https://blog.csdn.net/dongfenghuojian/article/details/78187131" target="_blank" rel="noopener">https://blog.csdn.net/dongfenghuojian/article/details/78187131</a></p><p><a href="http://blog.sina.com.cn/s/articlelist_3284623693_0_1.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/articlelist_3284623693_0_1.html</a> (系列教程)    </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> python 状态机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>在pyqt中使用python全局钩子模块</title>
+      <link href="/pyqt5_hook_key.html"/>
+      <url>/pyqt5_hook_key.html</url>
+      
+        <content type="html"><![CDATA[<p>在某些时候需要为自己的软件增加全局键盘监听，比如软件最小化隐藏后可以通过热键唤醒，又或者比如像QQ一样可以全局热键截图。这里介绍几个方法实现在PyQt中使用Python全局钩子模块实现全局热键功能。</p><a id="more"></a><ol><li><code>pyHook3</code></li></ol><p>安装命令 : <code>pip install pyhook3</code></p><p><a href="https://blog.csdn.net/q871063970/article/details/86648386" target="_blank" rel="noopener">https://blog.csdn.net/q871063970/article/details/86648386</a></p><p>似乎将pyhook支持py3版本的了?  没有太多研究.</p><p>缺点: 只支持win平台.</p><p>2.<code>keyboard</code> &amp; <code>mouse</code></p><p>安装命令: <code>pip install keyboard mouse</code></p><pre><code>from PyQt5 import  QtGui, QtWidgets, QtCorefrom PyQt5.QtCore import *from PyQt5.QtGui import *from PyQt5.QtWidgets import *import keyboardclass Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QVBoxLayout(self)        self.testBtn = QPushButton(self)        layout.addWidget(self.testBtn)        keyboard.add_hotkey(&#39;ctrl+shift+x&#39;, lambda:print(&#39;triggered&#39;, &#39;hotkey&#39;))        keyboard.add_hotkey(&#39;ctrl+shift+c&#39;, self.abc,args=(&#39;aa&#39;,&quot;bb&quot;,&quot;cc&quot;))    def abc(self,a,b,c):        print(a,b,c)if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><p>更详细例子 : <a href="https://github.com/PyQt5/PyQt/blob/63c6376358acb1863313fb5593097e6e0210cad6/Test/%E5%85%A8%E5%B1%80%E7%83%AD%E9%94%AE/HotKey.py" target="_blank" rel="noopener">pyqt中使用keyboard全局热键</a></p><p>优点: 跨平台 ;</p><p>缺点: 模块名字取得太差, 不容易被发现.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> pyqt hook key </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>像读文章一样读源码</title>
+      <link href="/read_open_source.html"/>
+      <url>/read_open_source.html</url>
+      
+        <content type="html"><![CDATA[<p>使用snoop, 像读文章一样读源码。</p><a id="more"></a><p>不得不说 开源项目没有一个提纲 ， 看起来太操蛋了。问了作者， 作者说 ， 你运行下主函数， 然后慢慢跟 。。。<br><img src="https://upload-images.jianshu.io/upload_images/10769157-b274b7acaecf49bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>没有目的地概览 ， 不知不觉就追究到细节里面去了。</p><p><img src="https://upload-images.jianshu.io/upload_images/10769157-1304cc87fcd42cae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>所以这一篇文章的目地就是 ， 如何在没有提纲的情况下 ， 能更好的只关注流程 ， 而不是细节 。 </p><p>开始 ： </p><ol><li>python DEBUG 模块介绍 :<br>　前段时间看过挺多文章提到pysoonper这个调试模块 , 有兴趣的可以百度一下.<br>个人尝试了一下 , 篇幅过大的DEBUG不适合用 pysoonper , 因为没有缩进 !<br>　这几天偶然遇到一个二次封装的模块<a href="[https://github.com/alexmojaki/snoop](https://github.com/alexmojaki/snoop">snoop</a><br>), 完美地解决了这个问题.</li><li>操作步骤 : </li></ol><ul><li>1 .  在<code>eric6.py</code>的<code>main()</code>函数上加snoop装饰器;<br><img src="https://upload-images.jianshu.io/upload_images/10769157-74129f6a6c303b25.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li><li>2 . 用vscode 打开 <code>eric6start_.log</code>  文件 (8层深度log文件34W行, pycharm对大文件支持很差);<br><img src="https://upload-images.jianshu.io/upload_images/10769157-ae946c117a082c24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="log文件"></li></ul><p>发现可以折叠 ， 但是最大可折叠等级只到5级 ， 而且无法对对应等级折叠 ， 有点遗憾 。也许是.log格式选得不太好， 不知道是否有更好的后缀格式。</p><ul><li>3 . vscode配置log文件关键字高亮；<br>安装高亮插件<br><img src="https://upload-images.jianshu.io/upload_images/10769157-8f6fee2356d7071d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>配置高亮关键字<br><img src="https://upload-images.jianshu.io/upload_images/10769157-a135fd015409b3da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li></ul><p>将<code>call</code> 和<code>return</code> 给加进去.</p><ul><li>4 .增加阶段关键字；</li></ul><p><img src="https://upload-images.jianshu.io/upload_images/10769157-c39d01a02149e808.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="eric6启动阶段"></p><p><img src="https://upload-images.jianshu.io/upload_images/10769157-aef5704c36824dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>加<code>#000</code> 是为了方便搜索 。<br>需要自己手动折叠 。<br>可以发现 每个<code>splash.showMessage()</code> 都是一个阶段 ， 展开折叠之后就是每个阶段具体执行细节 。 </p><hr><h3 id="ps-vscode-阅读log文件还是有一些不方便的地方-除了在2-中提到的-还有包括关闭文件再打开-折叠状态不会保留-有其他更好的方式-请留言告诉我-谢谢"><a href="#ps-vscode-阅读log文件还是有一些不方便的地方-除了在2-中提到的-还有包括关闭文件再打开-折叠状态不会保留-有其他更好的方式-请留言告诉我-谢谢" class="headerlink" title="ps: vscode 阅读log文件还是有一些不方便的地方 , 除了在2.中提到的, 还有包括关闭文件再打开, 折叠状态不会保留 , 有其他更好的方式 请留言告诉我 , 谢谢."></a>ps: vscode 阅读log文件还是有一些不方便的地方 , 除了在2.中提到的, 还有包括关闭文件再打开, 折叠状态不会保留 , 有其他更好的方式 请留言告诉我 , 谢谢.</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> debug </tag>
+            
+            <tag> snoop </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python 获取子进程print信息 　</title>
+      <link href="/pyqt_get_subprocess_pipeline.html"/>
+      <url>/pyqt_get_subprocess_pipeline.html</url>
+      
+        <content type="html"><![CDATA[<p>在PyQt中使用子线程读取子进程Python脚本的print输出流内容。</p><a id="more"></a><p>问题所在：</p><p><img src="https://i.loli.net/2019/05/24/5ce793171984f27031.png" alt="image.png"></p><p>如果模块都由自己开发， 正常操作 </p><p><img src="https://i.loli.net/2019/05/24/5ce7933994a0090037.png" alt="image.png"></p><p>但是因为不能改, 所以只能拦截：<br>代码：</p><pre><code class="python">pythonPath = self.pythonPath_cb.currentText()if suffix == &quot;py&quot;:    # 首次    self.pyCommand = [pythonPath, path]    self.modifiedReloadPython(path)def modifiedReloadPython(self, path_):    os.chdir(os.path.dirname(path_))    # 子进程调用    self.p = subprocess.Popen(self.pyCommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)    # self.stdoutWorker.p = self.p    self.stdoutWorker = Worker(self.p)    self.stdoutWorker.stdout_signal.connect(lambda x: self.error_te.append(&quot;PYDEBUG:\n&quot; + x))    self.stdoutWorker.start()class Worker(QThread):    stdout_signal = pyqtSignal(str)    def __init__(self, p, parent=None):        super().__init__(parent)        self.p = p    def run(self):        while True:            QApplication.processEvents()            if self.p is not None:                line = self.p.stdout.readline()                # line = line.strip()                if line != b&#39;&#39;:                    try:                        info = line.decode()                        self.stdout_signal.emit(info)                    except:                        self.stdout_signal.emit(repr(line))</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> subprocess.Popen </tag>
+            
+            <tag> 拦截print </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>QtWebkit和QWebEngineView与Javascript交互</title>
+      <link href="/qtwebjs.html"/>
+      <url>/qtwebjs.html</url>
+      
+        <content type="html"><![CDATA[<p>以前还是<code>QWebView</code>的时候和<code>Javascript</code>交互起来很方便，但是到了Qt5.6以后改用了<code>QWebEngineView</code>，并通过其提供的<code>qwebchannel.js</code>来进行交互。可能是由于刚出来的原因，这玩意儿有个bug就是必须在每次加载页面的时候手动注入，跳转页面后就失效了，需要手动注入，目前有没有修复具体未测试。这里对<code>QWebView</code>和<code>QWebEngineView</code>与Js交互都做了一个示例。<br><a id="more"></a></p><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol><li>针对<code>QWebView</code>通过<code>QWebFrame</code>的<code>addToJavaScriptWindowObject</code>把对象传递到<code>Javascript</code>中</li><li>针对<code>QWebEngineView</code>通过<code>QWebChannel.registerObject(&#39;Bridge&#39;, QObject)</code>把对象传递到<code>Javascript</code>中</li><li>可以通过<code>@pyqtSlot</code>装饰器来申明该方法可以暴露给<code>Javascript</code>调用</li></ol><pre><code class="python">@pyqtSlot(str)def callFromJs(self, text):    QMessageBox.information(self, &quot;提示&quot;, &quot;来自js调用：{}&quot;.format(text))</code></pre><ol start="4"><li>针对<code>QWebView</code>在<code>Javascript</code>中获取该对象，可以通过该对象对窗口属性以及信号和暴露出的方法进行调用</li></ol><pre><code class="javascript">// 这里绑定窗口的标题变化信号（这个信号是由QWidget内部的）Bridge.windowTitleChanged.connect({fun: function(title) {    showLog(&quot;标题被修改为：&quot; + title);}}, &quot;fun&quot;);// 绑定自定义的信号customSignalBridge.customSignal.connect({fun: function(text) {    showLog(&quot;收到自定义信号内容：&quot; + text);}}, &quot;fun&quot;);</code></pre><ol start="5"><li>针对<code>QWebEngineView</code>在<code>Javascript</code>中获取该对象，可以通过该对象对窗口属性以及信号和暴露出的方法进行调用</li></ol><pre><code class="javascript">new QWebChannel(qt.webChannelTransport,    function(channel) {        window.Bridge = channel.objects.Bridge;        // 这里绑定窗口的标题变化信号（这个信号是由QWidget内部的）        Bridge.windowTitleChanged.connect(function(title) {            showLog(&quot;标题被修改为：&quot; + title);        });        // 绑定自定义的信号customSignal        Bridge.customSignal.connect(function(text) {           showLog(&quot;收到自定义信号内容：&quot; + text);        });    });</code></pre><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><code>QWebView</code>： <a href="https://github.com/PyQt5/PyQt/blob/master/QWebView/JsSignals.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QWebView/JsSignals.py</a></p><p><code>QWebEngineView</code>： <a href="https://github.com/PyQt5/PyQt/blob/master/QWebEngineView/JsSignals.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QWebEngineView/JsSignals.py</a></p><ol><li>针对<code>QWebView</code>的核心实现</li></ol><pre><code class="python">class WebView(QWebView):    customSignal = pyqtSignal(str)    def __init__(self, *args, **kwargs):        super(WebView, self).__init__(*args, **kwargs)        self.initSettings()        # 暴露接口对象        self.page().mainFrame().javaScriptWindowObjectCleared.connect(self._exposeInterface)    def _exposeInterface(self):        &quot;&quot;&quot;向Js暴露调用本地方法接口        &quot;&quot;&quot;        self.page().mainFrame().addToJavaScriptWindowObject(&#39;Bridge&#39;, self)    # 注意pyqtSlot用于把该函数暴露给js可以调用    @pyqtSlot(str)    def callFromJs(self, text):        QMessageBox.information(self, &quot;提示&quot;, &quot;来自js调用：{}&quot;.format(text))    def sendCustomSignal(self):        # 发送自定义信号        self.customSignal.emit(&#39;当前时间: &#39; + str(time()))</code></pre><ol start="2"><li>针对<code>QWebEngineView</code>的核心实现</li></ol><pre><code class="python">class WebEngineView(QWebEngineView):    customSignal = pyqtSignal(str)    def __init__(self, *args, **kwargs):        super(WebEngineView, self).__init__(*args, **kwargs)        self.channel = QWebChannel(self)        # 把自身对象传递进去        self.channel.registerObject(&#39;Bridge&#39;, self)        # 设置交互接口        self.page().setWebChannel(self.channel)    # 注意pyqtSlot用于把该函数暴露给js可以调用    @pyqtSlot(str)    def callFromJs(self, text):        QMessageBox.information(self, &quot;提示&quot;, &quot;来自js调用：{}&quot;.format(text))    def sendCustomSignal(self):        # 发送自定义信号        self.customSignal.emit(&#39;当前时间: &#39; + str(time()))</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QWebEngineView/ScreenShot/JsSignals.gif" alt="JsSignals"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> QWebView </tag>
+            
+            <tag> QWebEngineView </tag>
+            
+            <tag> 浏览器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5窗口翻转动画</title>
+      <link href="/flipwidgetanimation.html"/>
+      <url>/flipwidgetanimation.html</url>
+      
+        <content type="html"><![CDATA[<p>QQ的界面一直是用来模仿练习做界面的好东西，这里就有一个类似QQ登录界面的实现翻转效果，当然这里并没有用两个窗口去做，而是用了<code>QStackedWidget</code>包含两个控件做切换，同时单独使用一个窗口做动画绘制。<br><a id="more"></a></p><h2 id="原理说明"><a href="#原理说明" class="headerlink" title="原理说明"></a>原理说明</h2><ol><li>用了两个<code>QLabel</code>来显示模拟的图片界面，并实现鼠标点击模拟真实的窗口对应位置点击</li><li>用了<code>QStackedWidget</code>来存放上面的两个界面<code>QLabel</code></li><li>点击切换时主要是对上面的两个界面进行截图并传递给翻转动画窗口</li><li>通过<code>setWindowOpacity</code>控制主窗口的显示隐藏（保留任务栏），当然也可以用<code>hide</code></li><li>动画窗口<code>FlipWidget.py</code>主要实现两张图片的翻转显示，考虑到0-90和90-180之前的情况，以及图片的缩放动画</li></ol><h2 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h2><ol><li>主要是在<code>paintEvent</code>方法中使用<code>QTransform</code>对<code>QPainter</code>进行圆心变换以及<code>rotate</code>设置翻转角度</li><li>同时根据翻转的角度范围对图片进行切换和缩放</li></ol><pre><code class="python">def paintEvent(self, event):    super(FlipWidget, self).paintEvent(event)    if hasattr(self, &#39;image1&#39;) and hasattr(self, &#39;image2&#39;) and self.isVisible():        painter = QPainter(self)        painter.setRenderHint(QPainter.Antialiasing, True)        painter.setRenderHint(QPainter.SmoothPixmapTransform, True)        # 变换        transform = QTransform()        # 把圆心设置为矩形中心        transform.translate(self.width() / 2, self.height() / 2)        if self._angle &gt;= -90 and self._angle &lt;= 90:            # 当翻转角度在90范围内显示第一张图，且从大图缩放到小图的过程            painter.save()            # 设置翻转角度            transform.rotate(self._angle, Qt.YAxis)            painter.setTransform(transform)            # 缩放图片高度            width = self.image1.width() / 2            height = int(self.image1.height() *                         (1 - abs(self._angle / self.Scale) / 100))            image = self.image1.scaled(                self.image1.width(), height,                Qt.IgnoreAspectRatio, Qt.SmoothTransformation)            painter.drawPixmap(                QPointF(-width, -height / 2), image)            painter.restore()        else:            # 当翻转角度在90范围内显示第二张图，且从小图缩放到原图的过程            painter.save()            if self._angle &gt; 0:                angle = 180 + self._angle            else:                angle = self._angle - 180            # 设置翻转角度， 注意这里角度有差异            transform.rotate(angle, Qt.YAxis)            painter.setTransform(transform)            # 缩放图片高度            width = self.image2.width() / 2            height = int(self.image2.height() *                         (1 - ((360 - abs(angle)) / self.Scale / 100)))            image = self.image2.scaled(                self.image2.width(), height,                Qt.IgnoreAspectRatio, Qt.SmoothTransformation)            painter.drawPixmap(                QPointF(-width, -height / 2), image)            painter.restore()</code></pre><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/PyQt5/PyQt/blob/master/QPropertyAnimation/FlipWidgetAnimation.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QPropertyAnimation/FlipWidgetAnimation.py</a></p><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QPropertyAnimation/ScreenShot/FlipWidgetAnimation.gif" alt="FlipWidgetAnimation"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 动画 </tag>
+            
+            <tag> 翻转 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt属性动画(QPropertyAnimation)</title>
+      <link href="/QPropertyAnimation.html"/>
+      <url>/QPropertyAnimation.html</url>
+      
+        <content type="html"><![CDATA[<p><code>QPropertyAnimation</code>继承自<code>QVariantAnimation</code>，其作为Qt的属性动画用于针对控件的属性或者继承自<code>QObject</code>的对象中定义的属性做修改，<br>简单来说就是基类是<code>QObject</code>且定义了属性变量，就可以用<code>QPropertyAnimation</code>来做属性动画。同时也可以通过<code>pyqtProperty</code>来增加自定义属性。<br><a id="more"></a></p><p>首先，通过构造函数<code>QPropertyAnimation(QObject, Union[QByteArray, bytes, bytearray], parent: QObject = None)</code>创建一个对象，其中</p><ol><li>第一个参数是动画作用的对象，也可以通过<code>setTargetObject</code>设置</li><li>第二个参数是属性名，在py3中类型是bytes，也可以通过<code>setPropertyName</code>设置</li></ol><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>一些常见的设置函数</p><table><thead><tr><th style="text-align:left"></th><th style="text-align:left"></th></tr></thead><tbody><tr><td style="text-align:left">setPropertyName</td><td style="text-align:left">设置属性名</td></tr><tr><td style="text-align:left">setTargetObject</td><td style="text-align:left">设置动画作用对象</td></tr><tr><td style="text-align:left">setDuration</td><td style="text-align:left">设置动画持续时间（毫秒）</td></tr><tr><td style="text-align:left">setStartValue</td><td style="text-align:left">设置开始值</td></tr><tr><td style="text-align:left">setEndValue</td><td style="text-align:left">设置结束值</td></tr><tr><td style="text-align:left">setEasingCurve</td><td style="text-align:left">设置动画曲线</td></tr><tr><td style="text-align:left">setKeyValueAt</td><td style="text-align:left">插入线性值</td></tr><tr><td style="text-align:left">setLoopCount</td><td style="text-align:left">设置循环次数（-1为永久）</td></tr></tbody></table><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>比如这个例子：</p><ol><li>修改控件的<code>geometry</code>大小</li><li>修改自定义属性</li><li>修改进度条的value值</li></ol><p><img src="/images/QPropertyAnimation.gif" alt="QPropertyAnimation"></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2019年5月8日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: @description: &quot;&quot;&quot;from PyQt5.QtCore import QPropertyAnimation, QRect, pyqtProperty, QEasingCurvefrom PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout,\    QLabel, QProgressBar, QSpacerItem, QSizePolicy__Author__ = &#39;Irony&#39;__Copyright__ = &#39;Copyright (c) 2019 Irony&#39;__Version__ = 1.0class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        self.resize(400, 400)        self._value = 0        self.button = QPushButton(&#39;属性动画测试&#39;, self)        self.button.clicked.connect(self.doStart)        self.button.setGeometry(0, 0, 80, 40)        self.buttonc = QPushButton(&#39;自定义属性 测试&#39;, self)        self.buttonc.clicked.connect(self.doStartCustom)        self.label = QLabel(&#39;&#39;, self)        self.progressbar = QProgressBar(self)        self.progressbar.setRange(0, 99)        layout = QVBoxLayout(self)        layout.addItem(QSpacerItem(            20, 60, QSizePolicy.Fixed, QSizePolicy.Fixed))        layout.addWidget(self.buttonc)        layout.addWidget(self.label)        layout.addWidget(self.progressbar)        # 进度条动画        self.progressStart()    # 此处是自定义属性，并通过动画修改后，设置QLabel的值    @pyqtProperty(int)    def value(self):        return self._value    @value.setter    def value(self, v):        self._value = v        self.label.setText(&#39;当前值：{}&#39;.format(v))    def doStart(self):        # 第一个参数是要执行的对象        animation = QPropertyAnimation(self.button, b&#39;geometry&#39;, self)        animation.setDuration(2000)  # 持续时间        # 缓和曲线风格,加了曲线动画会很大程度影响        animation.setEasingCurve(QEasingCurve.OutBounce)        animation.setStartValue(QRect(0, 0, 40, 40))        animation.setEndValue(QRect(250, 250, 80, 80))        animation.start(animation.DeleteWhenStopped)    def doStartCustom(self):        # 自定义属性动画        # 由于定义的属性是在继承的QWidget, 所以第一个参数是self        # 第二个参数就是 value        animation = QPropertyAnimation(self, b&#39;value&#39;, self)        animation.setDuration(2000)  # 持续时间        animation.setStartValue(0)        animation.setEndValue(100)        animation.start(animation.DeleteWhenStopped)    def progressStart(self):        # 进度条动画        # 这里 value是QProgressBar自带的属性，具体可以看文档        # https://doc.qt.io/qt-5/qprogressbar.html#properties        animation = QPropertyAnimation(self.progressbar, b&#39;value&#39;, self)        animation.setDuration(2000)  # 持续时间        animation.setLoopCount(-1)        # 这里采用插入线性值,第一个参数的范围是（0-1）        # 第二个参数的范围是进度（最小值-最大值）        animation.setKeyValueAt(0, self.progressbar.minimum())        animation.setKeyValueAt(0.1, 10)        animation.setKeyValueAt(0.2, 30)        animation.setKeyValueAt(0.5, 60)        animation.setKeyValueAt(0.7, 80)        animation.setKeyValueAt(1, self.progressbar.maximum())        animation.start(animation.DeleteWhenStopped)if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 动画 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何查阅Qt文档</title>
+      <link href="/viewapi.html"/>
+      <url>/viewapi.html</url>
+      
+        <content type="html"><![CDATA[<p>很多网友在问有没有PyQt5的文档之类的问题，在PyQt4的时候PyQt官网有了英文版的文档，随后有网友翻译成了中文。不过现在PyQt5官方的文档都指向了C++的Qt文档，其实C++的Qt API文档结构很清晰，翻阅很容易的，需要注意几点。<br><a id="more"></a></p><p>作为一个开发人员确实需要具备查阅文档、查询资料等基础技能，会为自己的开发带来很大的帮助，要善于搜索，通过不同的方式去搜索才能找到自己需要的东西。</p><p>拿Qt C++文档来说，官网地址是：<a href="https://doc.qt.io/qt-5/qtwidgets-module.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qtwidgets-module.html</a> 这里面记录了所有控件的详细函数文档。</p><p>比如拿 输入框 <code>QLineEdit</code> 来说，怎么去查询它的用法和信号槽等资料？</p><p><a href="https://doc.qt.io/qt-5/qlineedit.html" target="_blank" rel="noopener">https://doc.qt.io/qt-5/qlineedit.html</a></p><h2 id="左侧目录"><a href="#左侧目录" class="headerlink" title="左侧目录"></a>左侧目录</h2><p>在文档左侧目录中有如下几个：</p><p>Properties - 控件里的属性（比如宽高等,通常需要当作函数调用）</p><p>Public Slots - 这个是控件自己的槽函数（当作普通函数就行）</p><p>Signals - 这个是输入框的包含的信号</p><p>Public Functions、Reimplemented Public Functions、Static Public Members、Protected Functions、Reimplemented Protected Functions - 这几个都是函数列表</p><p><img src="/images/howtoviewapi1.png" alt="howtoviewapi1"></p><h2 id="类说明"><a href="#类说明" class="headerlink" title="类说明"></a>类说明</h2><p><img src="/images/howtoviewapi2.png" alt="howtoviewapi2"></p><p>这里有两个注意点</p><ol><li>红色方框内的表示该控件（输入框）继承于<code>QWidget</code>，所以该控件（输入框）拥有父类的所有方法和信号，当当前文档找不到相关资料和函数时，可以去父类找找看。</li><li>紫色方框内表示列举所有的方法（包括父类）</li></ol><h2 id="函数列表"><a href="#函数列表" class="headerlink" title="函数列表"></a>函数列表</h2><p><img src="/images/howtoviewapi3.png" alt="howtoviewapi3"></p><p>这里列举的就是该控件（输入框）的函数，同理点击上面的紫色方框是查看所有方法，一般这里主要用来查询你需要的功能函数，Qt的函数名比较容易理解，比如：只读ReadOnly，选择文字：setSelection。</p><p>所以再查下这部分资料的时候建议在浏览器中Ctrl + F打开浏览器的搜索框，并输入英文关键词来检索你所需要的函数在哪里。</p><p><img src="/images/howtoviewapi8.png" alt="howtoviewapi8"></p><h2 id="槽函数"><a href="#槽函数" class="headerlink" title="槽函数"></a>槽函数</h2><p><img src="/images/howtoviewapi4.png" alt="howtoviewapi4"></p><p>这部分列举的是槽函数，其实在PyQt中槽函数可以当作普通的函数。普通的函数也可以作为槽函数，直接通过信号连接即可，注意方框所示，还有很多函数是在父类里面。</p><h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p><img src="/images/howtoviewapi5.png" alt="howtoviewapi5"></p><p>这部分列举了该控件（输入框）所定义的信号，主要还是看名字，大多都能知道是做什么的，比如：</p><ol><li>editingFinished - 编辑完成信号</li><li>returnPressed - 回车键信号</li><li>textChanged(const QString &amp;text) - 内容改变信号</li></ol><p>这里还有个问题就是参数问题，一般&amp;后面的text作为参数传递到槽函数中</p><h2 id="函数详细说明"><a href="#函数详细说明" class="headerlink" title="函数详细说明"></a>函数详细说明</h2><p>当不明确这个函数是做什么的，可以点击该函数跳转到下面的说明，比如回车键信号<code>returnPressed</code></p><p><img src="/images/howtoviewapi6.png" alt="howtoviewapi6"></p><p>如图上所示，用翻译插件翻译，大部分就明白了，如下：</p><p><img src="/images/howtoviewapi7.png" alt="howtoviewapi7"></p><h2 id="关于如何搜索资料"><a href="#关于如何搜索资料" class="headerlink" title="关于如何搜索资料"></a>关于如何搜索资料</h2><p>比如当你要搜索输入框内容改变事件，一般建议两种搜索，且搜索的时候用空格把关键词分开搜索，而且直接用控件名</p><ol><li>中文搜索引擎：QLineEdit 内容 改变</li><li>英文搜索引擎：QLineEdit text change</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>推荐编辑器LiClipse</title>
+      <link href="/suggesteditor.html"/>
+      <url>/suggesteditor.html</url>
+      
+        <content type="html"><![CDATA[<p>关于Python的开发编辑器有很多，每个人有每个人的喜好，经常看到很多在问什么编辑器好用，有人推荐Sublime，有人推荐Pycharm等等，这里就不去比较其它编辑器的优缺点了，只谈谈关于LiClipse这个编辑器在初级使用阶段的智能提示功能等。开箱即用，支持多种语言，RST，Markdown和HTML编辑器的HTML预览。<br><a id="more"></a></p><p>其实LiClipse这个编辑器就是以前的PyDev插件的独立版本，基于Eclipse编辑器开发，去掉了Java的相关开发功能，关于软件的详细说明可以去官网查看： <a href="http://www.liclipse.com/" target="_blank" rel="noopener">http://www.liclipse.com/</a></p><p>编辑器只需要少量的配置，打开即可使用，快速自动import，也可以根据需要安装自己所需的插件，比如json、svn、主题插件等。个人推荐：适合刚入门的新手使用</p><p>由于新版的PyQt和PyDev去掉了详细的函数提示，所以PyQt的智能提示只有函数和返回值，并没有英文注释，但是以前的比如PyQt4的智能提示应该是有详细的英文注释提示。</p><h2 id="界面预览"><a href="#界面预览" class="headerlink" title="界面预览"></a>界面预览</h2><ol><li>主界面<br><img src="/images/editor1.png" alt="editor1"></li><li>鼠标悬停提示<br><img src="/images/editor2.png" alt="editor2"></li><li>输入提示<br><img src="/images/editor3.png" alt="editor3"></li><li>Git面板<br><img src="/images/editor4.png" alt="editor4"></li><li>全局搜索（Ctrl + H）<br><img src="/images/editor5.png" alt="editor5"><br><img src="/images/editor6.png" alt="editor6"></li></ol><h2 id="自动导包"><a href="#自动导包" class="headerlink" title="自动导包"></a>自动导包</h2><p>其实这个功能我是非常喜欢的，通过按下快捷键即可自动寻找包名导入，快捷键 Ctrl + Shift + O</p><p><img src="/images/editor_import.png" alt="editor_import"></p><p>也可以在标红的代码上按下 Ctrl + F1进行导入</p><p><img src="/images/editor_import2.png" alt="editor_import2"></p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>打开编辑器后首先要配置【Window -&gt; Preferences】的就是Python的环境变量，可以同时添加多个Python版本</p><p><img src="/images/editor_env.png" alt="editor_env"></p><h2 id="Tab等设置"><a href="#Tab等设置" class="headerlink" title="Tab等设置"></a>Tab等设置</h2><ol><li>Insert spaces for tabs        tab转空格</li><li>Show line numbers             显示行号</li></ol><p><img src="/images/editor_tab.png" alt="editor_tab"></p><h2 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h2><p>这个功能可以快速插入自己定义好的模版代码，比如 <code>if __name__ == &#39;__main__&#39;:</code>等等，比如我这里配置的创建文件的模版</p><p><img src="/images/editor_tpl.png" alt="editor_tpl"></p><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><table><thead><tr><th style="text-align:center"></th><th style="text-align:center"></th></tr></thead><tbody><tr><td style="text-align:center">格式化对齐</td><td style="text-align:center">Ctrl + Shift + F</td></tr><tr><td style="text-align:center">自动导包</td><td style="text-align:center">Ctrl + Shift + O</td></tr><tr><td style="text-align:center">快捷提示</td><td style="text-align:center">Alt + /</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编辑器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>三种方式绑定信号槽</title>
+      <link href="/bindsignals.html"/>
+      <url>/bindsignals.html</url>
+      
+        <content type="html"><![CDATA[<p>网上关于PyQt5的信号绑定使用的教程比较上，很多还是以前的绑定方式，导致在PyQt5中无法使用，这里归纳总结下已有的几种绑定信号槽的方式，<br>这几种方式各有各的优点和缺点。<br><a id="more"></a></p><h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><p>这个方式是最开始接触设计师的时候知道的，主要是通过控件的<code>objectName</code>和<code>QtCore.QMetaObject.connectSlotsByName(Form)</code>提供的连接函数来自动完成注册，<br>比如带有按钮的界面ui文件转成py文件后会发现如下代码：</p><pre><code class="python">self.pushButton = QtWidgets.QPushButton(Form)self.pushButton.setGeometry(QtCore.QRect(60, 40, 93, 28))self.pushButton.setObjectName(&quot;pushButton&quot;)# 通过这里自动完成连接信号槽QtCore.QMetaObject.connectSlotsByName(Form)</code></pre><p>此时只需要继承该UI文件类然后增加如下方法：</p><pre><code class="python">@pyqtSlot()def on_pushButton_clicked(self):    print(&#39;button clicked&#39;)</code></pre><p>这里解释一下，<code>@pyqtSlot()</code>装饰器把函数<code>on_pushButton_clicked</code>包装为一个槽函数，<br>而<code>QtCore.QMetaObject.connectSlotsByName(Form)</code>这句代码的意思就是自动去寻找满足的槽函数</p><p><font color="red">注意：这里有个规范（on_xxxx_clicked）</font>，这里必须要满足<code>on_控件的objectName_控件的信号</code>这样下划线连接起来的函数名才能被识别，<br>比如按钮的点击：<code>on_pushButton_clicked</code>、勾选框的选中：<code>on_checkbox_toggled(self, checked)</code></p><h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><p>这种方式则直接通过代码里调用控件的信号的<code>connect</code>方法来进行绑定，比如：</p><pre><code class="python"># 按钮点击函数def doClicked(self):    print(self.sender(), &#39;clicked&#39;)# 绑定点击信号self.pushButton.clicked.connect(self.doClicked)</code></pre><p><font color="red">注意：<code>connect</code>的是函数名字</font>，<code>self.sender()</code>这句代码是获取信号发送者（比如这里就是得到这个按钮对象），<br>用处在于有时候要循环创建一堆按钮</p><h2 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h2><p>通过参数这种方式其实比较特殊，在PyQt中大部分存在，但是在PySide中则很少，原因是两者的封装方式不同。</p><p>同时该方式用于在纯代码中比较常见，而且需要对该控件有那些信号可以用要很熟习，比如：</p><pre><code class="python"># 按钮点击函数def doClicked(self):    print(self.sender(), &#39;clicked&#39;)pushButton = QPushButton(&#39;按钮&#39;, self, clicked=self.doClicked, minimumHeight=40)</code></pre><p>这里可以通过参数（信号名字） = 函数来绑定信号</p><p>同时也可以设置其它参数，比如<br><code>button.setMinimumHeight(40)</code>也可以像参数里那样设置<code>minimumHeight=40</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 信号 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python 拷贝虚拟环境(一) 　</title>
+      <link href="/virtualenvpy.html"/>
+      <url>/virtualenvpy.html</url>
+      
+        <content type="html"><![CDATA[<p>通常来说 ,  刚开始使用python的时候都是把包装到全局路径 , 随着各个项目安装的包越来越多 , 之后每开始一个项目 , pycharm创建索引的时间都越来越漫长 , 所以不可避免得开始使用虚拟环境。<br>经过一番了解 ，虚拟环境的优点有这些：</p><ul><li>改善 pycharm 索引时间;</li><li>各个项目的库不会冲突；</li><li>理论上虚拟环境可以给同版本的操作系统使用(未试验过);</li><li>pip freeze &gt; requestment.txt 导出的依赖清晰;</li><li>各个版本的python共存;</li><li>…<a id="more"></a></li></ul><p>python虚拟环境库除了自带的venv , 还有三方库<code>virtualenv</code> , 此外 在<code>virtualenv</code>基础上又开发了<code>virtualenvwrapper(virtualenvwrapper_win)</code> 来管理</p><p>本文基于<code>virtualenvwrapper</code> 创建的虚拟环境来讲解.</p><pre><code>以下是收集的一些virtualenvwrapper配置教程:# linux平台https://www.cnblogs.com/netfoxman/p/5994697.html# window平台https://blog.csdn.net/shaququ/article/details/54292043  　https://blog.csdn.net/iaau0908/article/details/54021518</code></pre><p>虚拟环境创建多了我们就会发现 ,<br>有时候使用相同版本的环境,一些常用的库是需要重新安装的,<br>那么能不能创建一个基础环境, 默认拥有这些库, 然后在这个基础环境上继续安装三方库呢 ?</p><p>本文经过试验发现是可行的:</p><ol><li><p>创建基础虚拟环境 <code>mkvirtualenv &lt;环境名称&gt; [-p空格python其他版本的解释器路径]</code>.  例如 <code>mkvirtualenv py34 -p c:\Python34\python.exe</code></p></li><li><p>切换到虚拟环境<code>workon py34</code> , 然后安装一下三方库, 然后复制<code>py34</code>这个文件夹备份一下 ;</p></li><li>接着复制这个<code>py34</code>文件夹, 把复制后的文件夹改名为我们需要需要的文件夹例如<code>new34</code></li><li>进入<code>new34文件夹</code>, 用任意编辑器全路径搜索<code>py34</code>(替换虚拟环境的路径)</li><li>删除<code>new34/Scripts</code>下的<code>pip.exe, pip3.exe, pip3.x.exe, easy_install.exe</code>(因为安装路径硬编码到这里面了, 改不了, 需要重新安装)</li><li><a href="https://blog.csdn.net/douniwan007009/article/details/81463958" target="_blank" rel="noopener">https://blog.csdn.net/douniwan007009/article/details/81463958</a> 按方式二 , 源码安装 <code>setuptools</code> 后再用<code>easy_install pip</code> 安装pip后 , 完成 ;<br>如果有问题, 就继续按照方式一的源码安装pip;</li><li>在<code>new34</code>环境下 用<code>pip show 三方库</code> 来看一些库的位置, 确保正确.</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> virtualenvwrapper </tag>
+            
+            <tag> virtualenv </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>QRunnable线程池发信号</title>
+      <link href="/runnablesignal.html"/>
+      <url>/runnablesignal.html</url>
+      
+        <content type="html"><![CDATA[<p>因为只有继承<code>QObject</code>的类才能有信号和自定义信号，而<code>QRunnable</code>并不是继承自<code>QObject</code>，也不能用多继承的方式，这里考虑定义个全局的QObject变量用来存放一些定义好的可复用的信号。<br><a id="more"></a></p><p>pools 是 <code>QThreadPool</code> 实例</p><h2 id="看图说话"><a href="#看图说话" class="headerlink" title="看图说话"></a>看图说话</h2><ol><li><img src="/images/runnablesignal1.png" alt="runnablesignal1"></li><li>定义一个全局信号类<br><img src="/images/runnablesignal2.png" alt="runnablesignal2"></li><li>在QRunnable 中发送<br><img src="/images/runnablesignal3.png" alt="runnablesignal3"></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 信号 </tag>
+            
+            <tag> 线程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何和设计师中查看ui转换的py代码</title>
+      <link href="/viewpyindesigner.html"/>
+      <url>/viewpyindesigner.html</url>
+      
+        <content type="html"><![CDATA[<p>通过 设计师  查看ui转换的py代码</p><p>当初我刚学pyqt的时候 , 也有很多疑惑 , 用什么属性把控件加到布局 , 改了这个属性会发生什么 , 为什么这个会这样, 那个会那样 。。。 。。。</p><p>后来就看ui 转成的py代码 , 注释一下 , 什么效果消失了 , 就是那个api引起的 。<br><a id="more"></a></p><p>再来后发现了官方文档 , 查一查函数就行了 .</p><p>但是有些api文档找起来麻烦 , 用设计师点几下就行了 , 然后把转换出来的代码拷贝一下就完事了.</p><p>可是需要单独把ui转为py文件 , 之后再删除这个文件也是很烦的一件事 .</p><p>好 , 话不多说 , 接下来手把手教你如何快速在ui中查看py代码 .</p><p>官方也考虑过这种情况 , 所以 设计师中 是有这个功能的 , 但是qt的是没问题的 , pyqt的毕竟是绑定过来的 , 所以正常来说 你点击之后会弹出一个找不到应用程序的提示 .</p><p>看到这个东西是不是很眼熟 , 我们用的命令pyuic5 和这个东西应该是一样的 .</p><p><img src="/images/viewpyindesigner1.jpg" alt="viewpyindesigner1"></p><p>所以接下来 , 我们找找电脑上有没有这个东西</p><p><img src="/images/viewpyindesigner2.jpg" alt="viewpyindesigner2"></p><p>果然在pyqt5-toos文件夹下有这个东西 ,</p><p>我们根据第一张图的提示 , 把这个东西拷贝到相应的目录 (如果没有那个bin文件夹, 手动创建),</p><p><img src="/images/viewpyindesigner3.jpg" alt="viewpyindesigner3"></p><p>好了 , 大功告成 !</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> Designer </tag>
+            
+            <tag> 设计师 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5调整窗口显示边框</title>
+      <link href="/showframe.html"/>
+      <url>/showframe.html</url>
+      
+        <content type="html"><![CDATA[<p>在<code>windows</code>某些场景下调整窗口大小或者移动后就会导致里面的内容重绘（速度慢，卡顿，闪烁），其实在以前<code>windows</code>在低配置设备为了减少这种频繁绘制的情况，默认会开启这种效果，不过目前设备越来越好了就关闭了该功能。具体是在控制面板中-&gt;调整<code>Windows</code>的外观和性能-&gt;去掉勾选 拖动时显示窗口内容。<br><a id="more"></a></p><p>由于这个开关是全局状态的，而我们只需要在自己的窗口中实现该效果有两种方式。</p><ol><li>一种是自己绘制一个边框效果，放开鼠标时才操作真正的窗口。</li><li>二是替换窗口的处理过程函数<code>wndproc</code>处理<code>WM_NCLBUTTONDOWN</code>消息事件。</li></ol><p>今天讲第二种方法：</p><ol><li>需要了解 <code>SystemParametersInfo</code> API函数</li><li><code>SPI_GETDRAGFULLWINDOWS</code>：确定是否允许拖拉到最大窗口</li><li><code>SPI_SETDRAGFULLWINDOWS</code>：设置是否允许拖至最大窗口</li></ol><p>效果就是这样的：</p><p><img src="https://github.com/PyQt5/PyQt/raw/master/Demo/ScreenShot/ShowFrameWhenDrag.gif" alt="ShowFrameWhenDrag"></p><p>正如图片所看的那样，窗体在移动的时候，窗体并没有绘制出来，而是绘制出窗体的边框，等到窗体不在移动的时候就直接把窗体图像数据全部绘制出来，这样就避免了窗体在移动的时候出现闪烁的现象。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/PyQt5/PyQt/blob/master/Demo/ShowFrameWhenDrag.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/Demo/ShowFrameWhenDrag.py</a></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2019年4月23日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: ShowFrameWhenDrag@description: 调整窗口显示边框&quot;&quot;&quot;from ctypes import sizeof, windll, c_int, byref, c_long, c_void_p, c_ulong, c_longlong,\    c_ulonglong, WINFUNCTYPE, c_uintfrom PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel__Author__ = &#39;Irony&#39;__Copyright__ = &#39;Copyright (c) 2019 Irony&#39;__Version__ = 1.0if sizeof(c_long) == sizeof(c_void_p):    WPARAM = c_ulong    LPARAM = c_longelif sizeof(c_longlong) == sizeof(c_void_p):    WPARAM = c_ulonglong    LPARAM = c_longlongWM_NCLBUTTONDOWN = 0x00a1GWL_WNDPROC = -4SPI_GETDRAGFULLWINDOWS = 38SPI_SETDRAGFULLWINDOWS = 37WNDPROC = WINFUNCTYPE(c_long, c_void_p, c_uint, WPARAM, LPARAM)try:    CallWindowProc = windll.user32.CallWindowProcW    SetWindowLong = windll.user32.SetWindowLongW    SystemParametersInfo = windll.user32.SystemParametersInfoWexcept:    CallWindowProc = windll.user32.CallWindowProcA    SetWindowLong = windll.user32.SetWindowLongA    SystemParametersInfo = windll.user32.SystemParametersInfoAdef GetDragFullwindows():    rv = c_int()    SystemParametersInfo(SPI_GETDRAGFULLWINDOWS, 0, byref(rv), 0)    return rv.valuedef SetDragFullwindows(value):    SystemParametersInfo(SPI_SETDRAGFULLWINDOWS, value, 0, 0)class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QVBoxLayout(self)        layout.addWidget(QLabel(&#39;拖动或者调整窗口试试看&#39;))        # 重点替换窗口处理过程        self._newwndproc = WNDPROC(self._wndproc)        self._oldwndproc = SetWindowLong(            int(self.winId()), GWL_WNDPROC, self._newwndproc)    def _wndproc(self, hwnd, msg, wparam, lparam):        if msg == WM_NCLBUTTONDOWN:            # 获取系统本身是否已经开启            isDragFullWindow = GetDragFullwindows()            if isDragFullWindow != 0:                # 开启虚线框                SetDragFullwindows(0)                # 系统本身处理                ret = CallWindowProc(                    self._oldwndproc, hwnd, msg, wparam, lparam)                # 关闭虚线框                SetDragFullwindows(1)                return ret        return CallWindowProc(self._oldwndproc, hwnd, msg, wparam, lparam)if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="片尾"><a href="#片尾" class="headerlink" title="片尾"></a>片尾</h2><p>替换窗口过程可以处理很多系统窗口的处理过程，更多需要读者自行去发现。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 边框 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5判断信号是否连接</title>
+      <link href="/issignalconnected.html"/>
+      <url>/issignalconnected.html</url>
+      
+        <content type="html"><![CDATA[<p>在<code>PyQt</code>中某些情况下需要取消原来的信号连接，此时需要使用<code>disconnect</code>方法，但是在逻辑不严谨的情况下可能会导致多次调用<code>disconnect</code>方法而导致报错，当然可以通过try except来包裹代码。这里通过 <code>isSignalConnected</code> 来判断信号是否连接。<br><a id="more"></a></p><p>在QOjbect文档中这样写到：</p><pre><code class="c++">static const QMetaMethod valueChangedSignal = QMetaMethod::fromSignal(&amp;MyObject::valueChanged);if (isSignalConnected(valueChangedSignal)) {    QByteArray data;    data = get_the_value();       // expensive operation    emit valueChanged(data);}</code></pre><p>通过直接传入信号就行了，但是这在PyQt中不可行。需要这么做</p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2019年2月24日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: IsSignalConnected@description: 判断信号是否连接&quot;&quot;&quot;from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QTextBrowser__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &#39;Copyright (c) 2019 Irony&#39;__Version__ = 1.0class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QVBoxLayout(self)        self.button1 = QPushButton(&#39;已连接&#39;, self, clicked=self.doTest)        self.button2 = QPushButton(&#39;未连接&#39;, self)        self.retView = QTextBrowser(self)        layout.addWidget(self.button1)        layout.addWidget(self.button2)        layout.addWidget(self.retView)    def doTest(self):        self.retView.append(&quot;&quot;&quot;        # button1 clicked 是否连接: %s        # button2 clicked 是否连接: %s        &quot;&quot;&quot; % (            self.isSignalConnected(self.button1, &#39;clicked()&#39;),            self.isSignalConnected(self.button2, &#39;clicked()&#39;)        ))    def isSignalConnected(self, obj, name):        &quot;&quot;&quot;判断信号是否连接        :param obj:        对象        :param name:       信号名，如 clicked()        &quot;&quot;&quot;        index = obj.metaObject().indexOfMethod(name)        if index &gt; -1:            method = obj.metaObject().method(index)            if method:                return obj.isSignalConnected(method)        return Falseif __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/Demo/ScreenShot/IsSignalConnected.png" alt="IsSignalConnected"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 信号 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5无边框圆角阴影</title>
+      <link href="/shadowradius.html"/>
+      <url>/shadowradius.html</url>
+      
+        <content type="html"><![CDATA[<p>在做PyQt窗口开发中经常会遇到要做一些无边框不规则的窗口，可能还会带有阴影效果，这里演示做一个简单的无边框圆角的窗口，原理就在于背景窗口的透明和一层有色背景控件的叠加。<br><a id="more"></a></p><h2 id="原理说明"><a href="#原理说明" class="headerlink" title="原理说明"></a>原理说明</h2><ol><li>黑色（方便说明）的<code>QDialog</code>或者<code>QWidget</code>作为全透明无边框窗口。</li><li>其中白色的<code>QWidget</code>才是主要显示圆角和阴影的窗口，用于承载其它控件的显示。</li><li>注意红色和紫色的方框内的层次。</li><li>另：如果要熟悉纯代码编写请看 <a href="https://github.com/PyQt5/PyQt/blob/master/Demo/FramelessDialog.py" target="_blank" rel="noopener">FramelessDialog.py</a></li></ol><p>如图：</p><p><img src="https://github.com/PyQt5/PyQt/raw/master/Demo/ScreenShot/FramelessDialog1.png" alt="FramelessDialog1"></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/PyQt5/PyQt/blob/master/Demo/FramelessDialog.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/Demo/FramelessDialog.py</a></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2019年4月25日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: FramelessWidget@description: 无边框圆角带阴影窗口 &quot;&quot;&quot;from PyQt5.QtCore import Qtfrom PyQt5.QtWidgets import QDialog, QGraphicsDropShadowEffectfrom frameless import Ui_Dialog__Author__ = &#39;Irony&#39;__Copyright__ = &#39;Copyright (c) 2019&#39;class Window(QDialog, Ui_Dialog):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        self.mPos = None        self.setupUi(self)        self.closeButton.clicked.connect(self.close)        # 重点        # 无边框        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)        # 背景透明（就是ui中黑色背景的那个控件）        self.setAttribute(Qt.WA_TranslucentBackground, True)        # 添加阴影        effect = QGraphicsDropShadowEffect(self)        effect.setBlurRadius(12)        effect.setOffset(0, 0)        effect.setColor(Qt.gray)        self.setGraphicsEffect(effect)    # 加上简单的移动功能    def mousePressEvent(self, event):        &quot;&quot;&quot;鼠标点击事件&quot;&quot;&quot;        if event.button() == Qt.LeftButton:            self.mPos = event.pos()        event.accept()    def mouseReleaseEvent(self, event):        &#39;&#39;&#39;鼠标弹起事件&#39;&#39;&#39;        self.mPos = None        event.accept()    def mouseMoveEvent(self, event):        if event.buttons() == Qt.LeftButton and self.mPos:            self.move(self.mapToGlobal(event.pos() - self.mPos))        event.accept()if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/Demo/ScreenShot/FramelessDialog.png" alt="FramelessDialog"></p><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="/files/无边框圆角阴影.zip">无边框圆角阴影.zip</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 阴影 </tag>
+            
+            <tag> 无边框 </tag>
+            
+            <tag> 圆角 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>解决GitHub下载速度缓慢的问题</title>
+      <link href="/speedgithub.html"/>
+      <url>/speedgithub.html</url>
+      
+        <content type="html"><![CDATA[<p>由于Github的下载走的是AWS - 亚马逊的路线，，so slow，跟乌龟一样慢。。照着一些方法改了hosts文件，偶尔能提提速度。<br><a id="more"></a></p><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>Hosts文件的路径是：</p><p>C:\Windows\System32\drivers\etc</p><h2 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h2><p>终端内输入：</p><p>sudo vim /etc/hosts</p><h2 id="追加域名的IP地址"><a href="#追加域名的IP地址" class="headerlink" title="追加域名的IP地址"></a>追加域名的IP地址</h2><p>利用<a href="https://www.ipaddress.com/" target="_blank" rel="noopener">https://www.ipaddress.com/</a> 来获得以下两个GitHub域名的IP地址：</p><p>(1) github.com</p><p>(2) github.global.ssl.fastly.net</p><p>打开网页后，利用输入框内分别查询两个域名</p><p>将以上两段IP写入Hosts文件中：</p><pre><code>192.30.253.112               github.com151.101.185.194              github.global.ssl.fastly.net</code></pre><p>保存。</p><p>刷新 DNS 缓存</p><p>在终端或CMD中，执行以下命令：</p><p>ipconfig /flushdns</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>在Mac上以正确的姿势使用PyQtClient看Demo</title>
+      <link href="/pyqtclientmac.html"/>
+      <url>/pyqtclientmac.html</url>
+      
+        <content type="html"><![CDATA[<p>由于PyQtClient只提供了Windows的版本，这里记录下编译后在Mac上运行。<br><a id="more"></a></p><h2 id="下载项目"><a href="#下载项目" class="headerlink" title="下载项目"></a>下载项目</h2><p>安装git略。没有的东西可以都先去试试brew install xxx。没安装homebrew的建议使用搜索引擎</p><p><code>git clone https://github.com/PyQt5/PyQtClient.git</code></p><h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><ol><li>打开IDE配置python环境，使用anaconda比较方便</li><li>推荐用pycharm，我是习惯了用idea。anaconda安装可以去官网下载。</li><li>环境原因，选择新建一个 python 3.6 p.s. 我取的环境名字就是 3.6 所以后面的3.6其实是这个原因</li></ol><h2 id="conda源"><a href="#conda源" class="headerlink" title="conda源"></a>conda源</h2><p>最好是加环境变量，不加也可以，就是以后用到的都需要指定路径，不太常用，我就没加</p><pre><code>~/anaconda3/bin/conda config --add channels conda-forge~/anaconda3/bin/conda config --add channels defaults~/anaconda3/bin/conda config --add channels r~/anaconda3/bin/conda config --add channels bioconda~/anaconda3/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ </code></pre><h2 id="pip源"><a href="#pip源" class="headerlink" title="pip源"></a>pip源</h2><pre><code>mkdir ~/.pip &amp;&amp; vim ~/.pip/pip.conf</code></pre><pre><code>[global]index-url = http://mirrors.aliyun.com/pypi/simple/[install]trusted-host = mirrors.aliyun.com</code></pre><h2 id="安装编译依赖"><a href="#安装编译依赖" class="headerlink" title="安装编译依赖"></a>安装编译依赖</h2><pre><code>~/.conda/envs/3.6/bin/pip install -r PyQtClient/requirements.txt</code></pre><p>运行提示没有webkit，开始手动编译</p><ol><li><code>wget http://download.qt.io/archive/qt/5.9/5.9.0/qt-opensource-mac-x64-5.9.0.dmg</code></li><li><code>wget https://github.com/annulen/webkit/releases/download/qtwebkit-5.212.0-alpha2/qtwebkit-5.212.0_alpha2-qt59-darwin-x64.tar.xz</code></li><li><code>wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.10.1/PyQt5_gpl-5.10.1.zip</code></li><li><code>wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.8/sip-4.19.8.tar.gz</code></li><li>编译sip：<code>~/.conda/envs/3.6/bin/python configure.py --platform macx-g++ &amp;&amp; make &amp;&amp; sudo make install</code></li><li>编译Webkit.so 没有qmake 和 sip的环境变量， 所以后面都是手动指定的<pre><code>~/.conda/envs/3.6/bin/python configure.py --confirm-license --no-designer-plugin --no-qml-plugin --disable=dbus --disable=QAxContainer --disable=QtAndroidExtras --disable=QtBluetooth --disable=QtDBus --disable=QtDesigner --disable=Enginio --disable=QtLocation --disable=QtMacExtras --disable=QtMultimedia --disable=QtMultimediaWidgets --disable=QtNfc --disable=QtSerialPort --disable=QtSql --disable=QtSvg --disable=QtTest --disable=QtWinExtras --disable=QtX11Extras --disable=QtXml --disable=QtXmlPatterns --disable=pylupdate --disable=pyrcc --qmake=~/Qt5.9.0/5.9/clang_64/bin/qmake --sip=~/.conda/3.6/bin/sip &amp;&amp; make &amp;&amp; sudo make install</code></pre></li></ol><h2 id="插曲"><a href="#插曲" class="headerlink" title="插曲"></a>插曲</h2><ol><li>libcurl版本要求10.0，而我的是9.0，原因是前面我自己摸索，乱装依赖，所以遇到了<pre><code>~/anaconda3/bin/conda install -n 3.6 -c conda-forge libcurl</code></pre></li><li>结果这个libcurl 10.0.0 是装上了，可是pygit2版本不对了，conda给升级了，PyQtClient里requirements.txt要求这个包的版本（pygit2==0.27.2）几乎决定了其他的环境版本。后来还是老实的用conda去装了。这个连python版本什么的都会跟着变的。最后降级的结果是python 3.6.7<pre><code>~/anaconda3/bin/conda install -n 3.6 -c conda-forge libgit2==0.27.2</code></pre></li></ol><p>至此总算是启动正常了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python调用Java对Excel截图</title>
+      <link href="/calljava.html"/>
+      <url>/calljava.html</url>
+      
+        <content type="html"><![CDATA[<p>有的时候会遇到一些奇葩的需求，就是用Excel做报表，但是需要对里面的数据进行填充并生成报表图片，发送出去。这里记录用python调用jar包对excel文件进行公式计算和截图，数据填充可以用xlrd或者openpyxl<br><a id="more"></a></p><p>利用<code>jpype</code>模块初始化java虚拟机加载jar包然后执行其中的功能。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2019年3月12日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: CallJava@description: &quot;&quot;&quot;import osimport jpype__Author__ = &#39;Irony&#39;__Copyright__ = &#39;Copyright (c) 2019&#39;def convertToImage():    Workbook = jpype.JClass(&#39;com.aspose.cells.Workbook&#39;)    ImageFormat = jpype.JClass(&#39;com.aspose.cells.ImageFormat&#39;)    ImageOrPrintOptions = jpype.JClass(        &#39;com.aspose.cells.ImageOrPrintOptions&#39;)    SheetRender = jpype.JClass(&#39;com.aspose.cells.SheetRender&#39;)    book = Workbook(os.path.abspath(&#39;data/test.xlsx&#39;).replace(&#39;\\&#39;, &#39;/&#39;))    # 保存为html    book.save(&#39;data/index.html&#39;, 12)    # 保存为pdf    book.save(&#39;data/test.pdf&#39;)    # 截图    imgOptions = ImageOrPrintOptions()    # imgOptions.setQuality(100)    imgOptions.setOnePagePerSheet(True)    # 输出图片格式#     imgOptions.setImageFormat(ImageFormat.getJpeg())    imgOptions.setImageFormat(ImageFormat.getPng())    # 计算    CalculationOptions = jpype.JClass(        &#39;com.aspose.cells.CalculationOptions&#39;)    opt = CalculationOptions()    # 对Sheet1中的公式进行计算    sheet = book.getWorksheets().get(&#39;Sheet1&#39;)    sheet.calculateFormula(opt, True)    # 设置区域    pageSetup = sheet.getPageSetup()    # 去掉边距    pageSetup.setBottomMargin(0.)    pageSetup.setLeftMargin(0.)    pageSetup.setRightMargin(0.)    pageSetup.setTopMargin(0.)    # 设置要截图的区域(对角线)    pageSetup.setPrintArea(&#39;A0:C2&#39;)    # Create a SheetRender object for the target sheet    sr = SheetRender(sheet, imgOptions)    for page in range(sr.getPageCount()):        # Generate an image for the worksheet        sr.toImage(            page, os.path.join(&#39;data&#39;, &#39;%d.png&#39; % (page + 1)))def test():    # emm这里不知道什么用绝对路径就报错    libs = &#39;{};{}&#39;.format(        &#39;libs/bcprov-jdk16-146.jar&#39;,        &#39;libs/aspose-cells-19.2.jar&#39;    )    command = (jpype.getDefaultJVMPath(),                   &#39;-ea&#39;, &#39;-Xmn128m&#39;, &#39;-Xms512M&#39;, &#39;-Xmx512M&#39;,                   &#39;-Djava.class.path={0}&#39;.format(libs))    print(command)    jpype.startJVM(jpype.getDefaultJVMPath(),                   &#39;-ea&#39;, &#39;-Xmn128m&#39;, &#39;-Xms512M&#39;, &#39;-Xmx512M&#39;,                   &#39;-Djava.class.path={0}&#39;.format(libs)                   )    # 解决多线程问题    jpype.attachThreadToJVM()    # 对excel截图    convertToImage()    # 关闭虚拟机    jpype.shutdownJVM()    print(&#39;截图完成&#39;)if __name__ == &#39;__main__&#39;:    test()</code></pre><h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><a href="/files/调用java生成报表.7z">调用java生成报表.7z</a></p><p>解压后进入whls文件夹安装对应版本的jpype包</p><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="/images/calljava.png" alt="calljava"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 截图 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQtClient例子客户端</title>
+      <link href="/pyqtclient.html"/>
+      <url>/pyqtclient.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="/images/1.gif" alt="1.gif">对本博客所写的项目PyQt例子进行一个客户端的编写，客户端主要实现一些动画效果，更换皮肤，运行例子等功能。<img src="/images/2.gif" alt="2.gif"><br><a id="more"></a></p><h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><div class="github-widget" data-repo="PyQt5/PyQtClient"></div><h2 id="Windows客户端下载"><a href="#Windows客户端下载" class="headerlink" title="Windows客户端下载"></a>Windows客户端下载</h2><ol><li><a href="https://github.com/PyQt5/PyQtClient/releases/download/1.0.1/PyQtClient-x86-win32-exe.7z" target="_blank" rel="noopener">包含部分例子</a></li><li><a href="https://github.com/PyQt5/PyQtClient/releases/download/1.0.1/PyQtClient-x86-win32-exe.7z" target="_blank" rel="noopener">不包含例子</a></li><li><a href="https://pan.baidu.com/s/14j9tMqGlAy_8y3067xh-vw" target="_blank" rel="noopener">百度网盘</a> 提取码: nadv</li></ol><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQtClient/raw/master/ScreenShot/PyQtClient.gif" alt="PyQtClient"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>FFmpeg合成加密HLS记录</title>
+      <link href="/ffmpeghls.html"/>
+      <url>/ffmpeghls.html</url>
+      
+        <content type="html"><![CDATA[<p>记录在某个需求中要求截图并合成加密视频文件，这里采用FFmpeg的管道流来实现生成HLS加密文件。<br><a id="more"></a></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2019年3月4日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: @description: &quot;&quot;&quot;from pathlib import Pathfrom subprocess import Popen, PIPE__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &#39;Copyright (c) 2019 Irony&#39;__Version__ = 1.0# p = Popen([r&#39;D:\soft\ffmpeg\bin\ffmpeg.exe&#39;, &#39;-y&#39;,#            &#39;-threads&#39;, &#39;2&#39;,#            &#39;-f&#39;, &#39;image2pipe&#39;,#            &#39;-vcodec&#39;, &#39;mjpeg&#39;, &#39;-r&#39;, &#39;24&#39;, &#39;-i&#39;, &#39;-&#39;,#            &#39;-vcodec&#39;, &#39;h264&#39;, &#39;-r&#39;, &#39;24&#39;,#            #            &#39;-encryption_scheme&#39;, &#39;cenc-aes-ctr&#39;,#            #            &#39;-encryption_key&#39;, &#39;617D8A125A284DF48E3C6B1866348A3F&#39;,#            #            &#39;-encryption_kid&#39;, &#39;B326F895B6A24CC5A4DC70995728059C&#39;,#            r&#39;F:\Workspace\Test\videos\video.mp4&#39;], stdin=PIPE)p = Popen([r&#39;D:\soft\ffmpeg\bin\ffmpeg.exe&#39;,           &#39;-re&#39;,   # 按照实际帧率读取输入文件           &#39;-y&#39;,        # 覆盖已存在文件           &#39;-threads&#39;, &#39;2&#39;,  # 线程数量           &#39;-f&#39;, &#39;image2pipe&#39;,  # PIPE图片流           &#39;-vcodec&#39;, &#39;mjpeg&#39;,  # 图片编码           &#39;-r&#39;, &#39;24&#39;,  # 帧率           &#39;-i&#39;, &#39;-&#39;,  # 指定输入流为PIPE           &#39;-vcodec&#39;, &#39;h264&#39;,  # 输出编码           &#39;-r&#39;, &#39;24&#39;,  # 帧率           &#39;-map&#39;, &#39;0&#39;,#            &#39;-crf&#39;,&#39;20&#39;,     # 降低质量           &#39;-b&#39;, &#39;720k&#39;,        # 码率           &#39;-f&#39;, &#39;hls&#39;,           &#39;-codec:v&#39;, &#39;libx264&#39;,           &#39;-vbsf&#39;, &#39;h264_mp4toannexb&#39;,           # 指定加密密匙文件           &#39;-hls_key_info_file&#39;, r&#39;F:\Workspace\Test\videokey.info&#39;,           &#39;-hls_time&#39;, &#39;20&#39;,           &#39;-hls_list_size&#39;, &#39;0&#39;,           &#39;-hls_wrap&#39;, &#39;0&#39;,#            &#39;-hls_flags&#39;, &#39;single_file&#39;,  # 生成单个文件(有bug)           r&#39;F:\Workspace\Test\videos\playlist.m3u8&#39;], stdin=PIPE)print(p)t = 1 / 24for i, path in enumerate(Path(&#39;frames&#39;).rglob(&#39;*.jpg&#39;)):    #     print(i, path)    p.stdin.write(open(str(path), &#39;rb&#39;).read())p.stdin.close()p.wait()print(&#39;ok&#39;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> FFmpeg </tag>
+            
+            <tag> HLS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5编译QWebView与QWebEngineView共存</title>
+      <link href="/webviewnew.html"/>
+      <url>/webviewnew.html</url>
+      
+        <content type="html"><![CDATA[<p>在PyQt5.5过后移除了<code>QWebView</code>控件，改用<code>QWebEngineView</code>，但是这个刚开始用起来不是很方便，最近在整理一些例子的时候需要同时使用<code>QWebView</code>和<code>QWebEngineView</code>，故希望把<code>QWebView</code>重新加入到后面的PyQt5版本中，查看PyQt5.10.1的源码发现里面其实是有<code>QWebView</code>的，只是因为Qt5.10.1中没有编译好的dll等导致无法编译。<br><a id="more"></a></p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol><li>安装VS2015</li><li>安装Qt5.10.1</li><li>前往 <a href="https://github.com/annulen/webkit/releases" target="_blank" rel="noopener">https://github.com/annulen/webkit/releases</a> 下载对应的文件，比如：qtwebkit-5.212.0_alpha2-qt59-msvc2015-x86.zip</li><li>下载PyQt5.10.1源码</li><li>下载对应版本的sip源码</li></ol><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol><li>设置环境变量<code>set PATH=D:\soft\Qt\Qt5.10.1\5.10.1\msvc2015\bin;%PATH%</code></li><li>首先进入vs2015命令行编译sip并安装，<code>python configure.py &amp;&amp; nmake &amp;&amp; nmake install</code></li><li>进入PyQt5.10.1源码编译安装即可</li><li>如果要减少PyQt5.10.1的编译可以试试以下代码</li></ol><pre><code>D:\soft\Python35\python configure.py --confirm-license --no-designer-plugin --no-qml-plugin --disable=dbus --disable=QAxContainer --disable=QtAndroidExtras --disable=QtBluetooth --disable=QtDBus --disable=QtDesigner --disable=Enginio --disable=QtLocation --disable=QtMacExtras --disable=QtMultimedia --disable=QtMultimediaWidgets --disable=QtNfc --disable=QtSerialPort --disable=QtSql --disable=QtSvg --disable=QtTest --disable=QtWinExtras --disable=QtX11Extras --disable=QtXml --disable=QtXmlPatterns --disable=pylupdate --disable=pyrcc</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> QWebView </tag>
+            
+            <tag> 浏览器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5之图片轮播</title>
+      <link href="/pageswitching.html"/>
+      <url>/pageswitching.html</url>
+      
+        <content type="html"><![CDATA[<p>之前看到了<code>QStackedWidget</code>做切换动画，让界面不那么生硬，于是参考了 <a href="http://qt.shoutwiki.com/wiki/Extending_QStackedWidget_for_sliding_page_animations_in_Qt" target="_blank" rel="noopener">http://qt.shoutwiki.com/wiki/Extending_QStackedWidget_for_sliding_page_animations_in_Qt</a> 做了一个<code>QStackedWidget</code>的切换动画，然后利用<code>QStackedWidget</code>结合多个<code>QLabel</code>显示图片来做一个轮播效果。</p><p>其实在写之前也在网上找了很多例子，参看过后发现大多例子都是利用到了<code>paintEvent</code>去绘制，这样其实还是比较麻烦，个人觉得更好的方式是使用<code>QPropertyAnimation</code>属性动画修改控件中<code>QLabel</code>图片控件的pos位置属性就可以达到移动效果了。<br><a id="more"></a></p><ol><li>比较核心的算法就是要计算当前页面和下一个页面的位置偏移量，比如:</li></ol><pre><code class="python"># 计算偏移量offsetX = self.frameRect().width()offsetY = self.frameRect().height()w_next.setGeometry(0, 0, offsetX, offsetY)if direction == self.BOTTOM2TOP:    offsetX = 0    offsetY = -offsetYelif direction == self.TOP2BOTTOM:    offsetX = 0elif direction == self.RIGHT2LEFT:    offsetX = -offsetX    offsetY = 0elif direction == self.LEFT2RIGHT:    offsetY = 0# 重新定位显示区域外部/旁边的下一个窗口小部件pnext = w_next.pos()pnow = w_now.pos()self._pnow = pnow# 移动到指定位置并显示w_next.move(pnext.x() - offsetX, pnext.y() - offsetY)w_next.show()w_next.raise_()</code></pre><ol start="2"><li><p>其次是对这两个页面增加关联<code>pos</code>属性的<code>QPropertyAnimation</code>动画，然后加入到并行动画组<code>QParallelAnimationGroup</code>中再启动即可。</p></li><li><p>对<code>QStackedWidget</code>的<code>setCurrentIndex</code>和<code>setCurrentWidget</code>这两个函数进行了覆盖重写达到及时手动调用这两个函数也会产生动画效果的目的。</p></li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/PyQt5/PyQt/blob/master/QPropertyAnimation/PageSwitching.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QPropertyAnimation/PageSwitching.py</a></p><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QPropertyAnimation/ScreenShot/PageSwitching.gif" alt="PageSwitching"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 动画 </tag>
+            
+            <tag> 轮播 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python 在类里使用进程池</title>
+      <link href="/processinclass.html"/>
+      <url>/processinclass.html</url>
+      
+        <content type="html"><![CDATA[<ol><li>首先， 进程池的作用就是减少进程的创建和释放 开销的， 所以在类中作为局部变量是不合适的; </li><li><p>其次， 进程池必须在<code>if __name__ == &quot;__main__&quot;</code>里 ，否则会报 frozen_ 什么什么的错误;（这一点可能解释有误）;</p><a id="more"></a></li><li><p>然后， 线程池的<code>apply_async</code>中如果传入<code>self.xxx</code>方法，会报<code>multiprocessing.Pool pickling error</code>什么的错误， 具体解释见<a href="https://blog.csdn.net/dutsoft/article/details/70336462，" target="_blank" rel="noopener">https://blog.csdn.net/dutsoft/article/details/70336462，</a> 里面有解决方法，但是我没有成功（最开始测试没有现在理解的透彻， 不过应该是可以的）; 由于第1点 不合理， 所以有什么办法在类 函数中获取 进程池对象po的地址： </p></li></ol><p><img src="/images/processinclass1.png" alt="processinclass1"></p><p>我的解决思路和方法是: </p><ol><li>通过globals() 取得全局变量 ， 测试证明 ：不同文件的<code>globals()</code>是不同的： 如<code>Tab2.py</code>的 <code>globals()</code> 和<code>main_extra_func_file.py</code>中的 <code>globals()</code>是不同的 ， 所以 这样在<code>Tab2.py</code>中取不到po对象； </li><li>通过<code>__main__.po</code> 来获取 （为什么会想到这个呢， 因为有时候导包 import .xxx 和import xxx 会报 <code>__main__</code> 没有什么属性什么的）：</li></ol><pre><code class="python">def getPoolObject():# po 的名字在main函数中定义# __main__ 模块在sys.modules 的键是&quot;__mp_main__&quot;    return sys.modules[&quot;__mp_main__&quot;].po</code></pre><p>ps : (图没截好 ， <code>rglob_worker</code> 是外部函数 ， 非类内函数 ，po = getPoolBojcet() 这一行是类内函数 ，红色箭头 2. 在的那条白色分割线 是2个函数。 ) </p><p><img src="/images/processinclass2.png" alt="processinclass2"></p><p><code>len(po._cache) == 1</code> : po._cache 是当前有任务的进程数， ==1表示所有任务结束; 利用回调 ， 可以更轻松地进行进程通信。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 进程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5之QSlider滑动条点击定位</title>
+      <link href="/jumpslider.html"/>
+      <url>/jumpslider.html</url>
+      
+        <content type="html"><![CDATA[<p><code>QSlider</code> 在通常情况下支持鼠标点击可以任意拖动，或者鼠标点击则往鼠标点击的方向移动一小格，这种移动一小格通常情况下用起来很不方便，比如我要做一个播放器的播放进度条，肯定是点击某个位置就直接跳到该位置，为此需要对 <code>QSlider</code> 的鼠标事件<code>mousePressEvent</code>进行重写。<br><a id="more"></a></p><h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>一般的想法就是重写<code>mousePressEvent</code>后，得到鼠标点击的x和y点然后进行比例换算，再通过<code>setValue</code>来设置值，其实<code>QSlider</code>的<code>style</code>里面是有一个<code>sliderValueFromPosition</code>方法来计算值的。直接调用这个方法即可。</p><ol><li>首先通过<code>QSlider.style().subControlRect</code>方法计算得到滑块的区域，当鼠标点击区域在此次时则交给系统自己处理（比如按住不放拖动）</li><li>通过<code>orientation</code>判断滑动条的方向（横竖）</li><li>通过<code>invertedAppearance</code>判断滑动条是否反向（左右、上下）</li><li>通过<code>QSlider.style().sliderValueFromPosition(最小值, 最大值, x或者y坐标, 宽度或者高度)</code>来计算得到值</li><li>最后通过<code>setValue</code>来设置值</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/PyQt5/PyQt/blob/master/QSlider/ClickJumpSlider.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QSlider/ClickJumpSlider.py</a></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年11月5日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: JumpSlider@description: &quot;&quot;&quot;from PyQt5.QtCore import Qtfrom PyQt5.QtWidgets import QSlider, QStyleOptionSlider, QStyle, QWidget,\    QFormLayout, QLabel__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &quot;Copyright (c) 2018 Irony&quot;__Version__ = &quot;Version 1.0&quot;class JumpSlider(QSlider):    def mousePressEvent(self, event):        # 获取上面的拉动块位置        option = QStyleOptionSlider()        self.initStyleOption(option)        rect = self.style().subControlRect(            QStyle.CC_Slider, option, QStyle.SC_SliderHandle, self)        if rect.contains(event.pos()):            # 如果鼠标点击的位置在滑块上则交给Qt自行处理            super(JumpSlider, self).mousePressEvent(event)            return        if self.orientation() == Qt.Horizontal:            # 横向，要考虑invertedAppearance是否反向显示的问题            self.setValue(self.style().sliderValueFromPosition(                self.minimum(), self.maximum(),                event.x() if not self.invertedAppearance() else (self.width(                ) - event.x()), self.width()))        else:            # 纵向            self.setValue(self.style().sliderValueFromPosition(                self.minimum(), self.maximum(),                (self.height() - event.y()) if not self.invertedAppearance(                ) else event.y(), self.height()))class TestWindow(QWidget):    def __init__(self, *args, **kwargs):        super(TestWindow, self).__init__(*args, **kwargs)        layout = QFormLayout(self)        self.label1 = QLabel(&#39;0&#39;, self)        layout.addRow(self.label1, JumpSlider(            Qt.Horizontal, valueChanged=lambda v: self.label1.setText(str(v))))        # 横向-反向显示        self.label2 = QLabel(&#39;0&#39;, self)        layout.addRow(self.label2, JumpSlider(            Qt.Horizontal, invertedAppearance=True,            valueChanged=lambda v: self.label2.setText(str(v))))        self.label3 = QLabel(&#39;0&#39;, self)        layout.addRow(self.label3, JumpSlider(            Qt.Vertical, minimumHeight=200, valueChanged=lambda v: self.label3.setText(str(v))))        # 纵向反向显示        self.label4 = QLabel(&#39;0&#39;, self)        layout.addRow(self.label4, JumpSlider(            Qt.Vertical, invertedAppearance=True,            minimumHeight=200, valueChanged=lambda v: self.label4.setText(str(v))))if __name__ == &#39;__main__&#39;:    import sys    import cgitb    sys.excepthook = cgitb.enable(1, None, 5, &#39;&#39;)    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = TestWindow()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QSlider/ScreenShot/ClickJumpSlider.gif" alt="ClickJumpSlider"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 滑动条 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5仿网页鼠标移动点阵特效</title>
+      <link href="/rlatticeeffect.html"/>
+      <url>/rlatticeeffect.html</url>
+      
+        <content type="html"><![CDATA[<p>Orz，前段时间有个zz需求，就是要做一个类似网页上很多个多点连线、鼠标移动跟随的那种炫酷特效，然后花了点时间在网上找了js做的，刚开始打算是嵌入<code>QWebView</code>来显示网页，后来研究了下js的算法代码，遂改用<code>QWidget</code>的<code>paintEvent</code>直接绘制。<br><a id="more"></a></p><h2 id="大概思路"><a href="#大概思路" class="headerlink" title="大概思路"></a>大概思路</h2><ol><li>先根据窗口大小随机创建一些点</li><li>遍历这些点并找到与之相关联的点</li><li>在动画过程中绘制圆点和画两点之间的连线</li><li>属性动画<code>QPropertyAnimation</code>改变颜色的透明度</li></ol><h2 id="题外"><a href="#题外" class="headerlink" title="题外"></a>题外</h2><ol><li>这里没有仔细去研究js里的算法优化,在浏览器里嗖嗖的就生成了,在py里好慢….</li><li>尽量在py里优化了循环操作,也简单的做了个cython加速也才提高了1s ? 1倍?…</li><li>不要只是为了好看用这玩意儿,和网页的效果一样,占CPU !!!!!!没有任何意义</li><li>如果有更好的优化算法请告知, 3Q</li><li>pyd是python3.4生成的,删掉pyd也能运行</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/PyQt5/PyQt/blob/master/QPropertyAnimation/RlatticeEffect.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QPropertyAnimation/RlatticeEffect.py</a></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年11月22日@author: Irony@site: https://pyqt5.com, https://github.com/892768447@email: 892768447@qq.com@file: @description: &quot;&quot;&quot;from random import randomfrom time import timefrom PyQt5.QtCore import QPropertyAnimation, QObject, pyqtProperty, QEasingCurve,\    Qt, QRectF, pyqtSignalfrom PyQt5.QtGui import QColor, QPainterPath, QPainterfrom PyQt5.QtWidgets import QWidget__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &#39;Copyright (c) 2018 Irony&#39;__Version__ = 1.0try:    import pointtool  # @UnusedImport @UnresolvedImport    getDistance = pointtool.getDistance    findClose = pointtool.findCloseexcept:    import math    def getDistance(p1, p2):        return math.pow(p1.x - p2.x, 2) + math.pow(p1.y - p2.y, 2)    def findClose(points):        plen = len(points)        for i in range(plen):            closest = [None, None, None, None, None]            p1 = points[i]            for j in range(plen):                p2 = points[j]                dte1 = getDistance(p1, p2)                if p1 != p2:                    placed = False                    for k in range(5):                        if not placed:                            if not closest[k]:                                closest[k] = p2                                placed = True                    for k in range(5):                        if not placed:                            if dte1 &lt; getDistance(p1, closest[k]):                                closest[k] = p2                                placed = True            p1.closest = closestclass Target:    def __init__(self, x, y):        self.x = x        self.y = yclass Point(QObject):    valueChanged = pyqtSignal()    def __init__(self, x, ox, y, oy, *args, **kwargs):        super(Point, self).__init__(*args, **kwargs)        self.__x = x        self._x = x        self.originX = ox        self._y = y        self.__y = y        self.originY = oy        # 5个闭合点        self.closest = [0, 0, 0, 0, 0]        # 圆半径        self.radius = 2 + random() * 2        # 连线颜色        self.lineColor = QColor(156, 217, 249)        # 圆颜色        self.circleColor = QColor(156, 217, 249)    def initAnimation(self):        # 属性动画        if not hasattr(self, &#39;xanimation&#39;):            self.xanimation = QPropertyAnimation(                self, b&#39;x&#39;, self, valueChanged=self.valueChanged.emit,                easingCurve=QEasingCurve.InOutSine)            self.yanimation = QPropertyAnimation(                self, b&#39;y&#39;, self, valueChanged=self.valueChanged.emit,                easingCurve=QEasingCurve.InOutSine,                finished=self.updateAnimation)            self.updateAnimation()    def updateAnimation(self):        self.xanimation.stop()        self.yanimation.stop()        duration = (1 + random()) * 1000        self.xanimation.setDuration(duration)        self.yanimation.setDuration(duration)        self.xanimation.setStartValue(self.__x)        self.xanimation.setEndValue(self.originX - 50 + random() * 100)        self.yanimation.setStartValue(self.__y)        self.yanimation.setEndValue(self.originY - 50 + random() * 100)        self.xanimation.start()        self.yanimation.start()    @pyqtProperty(float)    def x(self):        return self._x    @x.setter    def x(self, x):        self._x = x    @pyqtProperty(float)    def y(self):        return self._y    @y.setter    def y(self, y):        self._y = yclass Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        self.setMouseTracking(True)        self.resize(800, 600)        self.points = []        self.target = Target(self.width() / 2, self.height() / 2)        self.initPoints()    def paintEvent(self, event):        super(Window, self).paintEvent(event)        painter = QPainter()        painter.begin(self)        painter.setRenderHint(QPainter.Antialiasing)        painter.fillRect(self.rect(), Qt.black)        self.animate(painter)        painter.end()    def mouseMoveEvent(self, event):        super(Window, self).mouseMoveEvent(event)        # 鼠标移动时更新xy坐标        self.target.x = event.x()        self.target.y = event.y()        self.update()    def initPoints(self):        t = time()        self.points.clear()        # 创建点        stepX = self.width() / 20        stepY = self.height() / 20        for x in range(0, self.width(), int(stepX)):            for y in range(0, self.height(), int(stepY)):                ox = x + random() * stepX                oy = y + random() * stepY                point = Point(ox, ox, oy, oy)                point.valueChanged.connect(self.update)                self.points.append(point)        print(time() - t)        t = time()        # 每个点寻找5个闭合点        findClose(self.points)        print(time() - t)    def animate(self, painter):        for p in self.points:            # 检测点的范围            value = abs(getDistance(self.target, p))            if value &lt; 4000:                # 其实就是修改颜色透明度                p.lineColor.setAlphaF(0.3)                p.circleColor.setAlphaF(0.6)            elif value &lt; 20000:                p.lineColor.setAlphaF(0.1)                p.circleColor.setAlphaF(0.3)            elif value &lt; 40000:                p.lineColor.setAlphaF(0.02)                p.circleColor.setAlphaF(0.1)            else:                p.lineColor.setAlphaF(0)                p.circleColor.setAlphaF(0)            # 画线条            if p.lineColor.alpha():                for pc in p.closest:                    if not pc:                        continue                    path = QPainterPath()                    path.moveTo(p.x, p.y)                    path.lineTo(pc.x, pc.y)                    painter.save()                    painter.setPen(p.lineColor)                    painter.drawPath(path)                    painter.restore()            # 画圆            painter.save()            painter.setPen(Qt.NoPen)            painter.setBrush(p.circleColor)            painter.drawRoundedRect(QRectF(                p.x - p.radius, p.y - p.radius, 2 * p.radius, 2 * p.radius), p.radius, p.radius)            painter.restore()            # 开启动画            p.initAnimation()if __name__ == &#39;__main__&#39;:    import sys    import cgitb    sys.excepthook = cgitb.enable(1, None, 5, &#39;&#39;)    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QPropertyAnimation/ScreenShot/RlatticeEffect.gif" alt="RlatticeEffect"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 动画 </tag>
+            
+            <tag> 特效 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>QDataWidgetMapper 数据库绑定 QLineEdit控件</title>
+      <link href="/datawidgetmapper.html"/>
+      <url>/datawidgetmapper.html</url>
+      
+        <content type="html"><![CDATA[<p>qt为操作数据库提供了一个model+view的模式 , 这样简单的出入库逻辑就不需要自己编写。</p><p><code>QDataWidgetMapper</code> 可以 将数据库的数据 映射到其他控件 。</p><p>注意: 表格里的数据修改 还没有提交到数据库 , 需要点击提交按钮才生效。<br><a id="more"></a></p><p><a href="https://github.com/PyQt5/PyQt/tree/master/Test/partner_625781186/16_sqlModel/01_mapper" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/tree/master/Test/partner_625781186/16_sqlModel/01_mapper</a></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="python">#-*- coding: utf-8 -*-from PyQt5 import  QtWidgets, QtGui, QtCorefrom PyQt5.QtCore import *from PyQt5.QtGui import *from PyQt5.QtWidgets import *from PyQt5.QtSql import *import syssys.path.append(&#39;./ui&#39;)from Ui_MainWindow import Ui_MainWindowclass MainWindow(QMainWindow, Ui_MainWindow):    def __init__(self, parent=None, *args):        super(MainWindow, self).__init__(parent,  *args)        self.setupUi(self)        self.resize(800,600)        #===============================   db   ======================================#        # self.db = QSqlDatabase.addDatabase(&#39;QMYSQL&#39;)        # self.db.setHostName(&quot;127.0.0.1&quot;)  # set address        # self.db.setUserName(&quot;root&quot;)  # set user name        # self.db.setPassword(&#39;123456&#39;)  # set user pwd           # self.db.setDatabaseName(&quot;database&quot;)        self.db = QSqlDatabase.addDatabase(&#39;QSQLITE&#39;)        self.db.setDatabaseName(&#39;./db/database.db&#39;)        #================================= codemodel =====================================#        # 实例化model        self.codeModel = QSqlRelationalTableModel()        # model设置表        self.initializeModel(self.codeModel, &#39;Mongo&#39;)        # 设置编辑策略        # self.codeModel.setEditStrategy(QSqlTableModel.OnFieldChange)        # !!! 这里要注意 , 只能用这个策略 , 才可以实现自动提交        self.codeModel.setEditStrategy(QSqlTableModel.OnManualSubmit)        self.codeView = self.createView(&quot;code_View&quot;, self.codeModel)        self.verticalLayout.addWidget(self.codeView)          #================================ initData ==================================#        # 数据映射        self.mapper = QDataWidgetMapper()        # 提交策略        self.mapper.setSubmitPolicy(QDataWidgetMapper.AutoSubmit)        # 映射的模型源        self.mapper.setModel(self.codeModel)        self.mapper.addMapping(self.l1,0)        self.mapper.addMapping(self.l2,1)        self.mapper.addMapping(self.l3,2)        self.mapper.addMapping(self.l4,3)        self.mapper.addMapping(self.l5,4)        self.mapper.toFirst()        #================================ pushButton ==================================#        self.sub_btn.clicked.connect(self.mapper.submit)        self.sub_btn.clicked.connect(self.codeModel.submitAll)        self.pre_btn.clicked.connect(self.mapper.toPrevious)        self.next_btn.clicked.connect(self.mapper.toNext)    def initializeModel(self, model, tablename):        &#39;&#39;&#39;重关联。&#39;&#39;&#39;        model.setTable(tablename)#        model.setEditStrategy(QSqlTableModel.OnRowChange)        model.select()    def createView(self, title, model):        &#39;&#39;&#39;创建TableView视图&#39;&#39;&#39;        view =  QTableView()        view.setModel(model)        view.setWindowTitle(title)        #列宽设置        view.horizontalHeader().setSectionResizeMode(3)        #行高设置        view.verticalHeader().setSectionResizeMode(1)        #充满列宽        view.horizontalHeader().setStretchLastSection(True) #        view.verticalHeader().setVisible(False)#隐藏行标题        #标题左对齐        view.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)        #标题左对齐        view.verticalHeader().setDefaultAlignment(Qt.AlignLeft)        return view  if __name__ == &quot;__main__&quot;:    import sys    app = QApplication(sys.argv)    app.setStyle(QStyleFactory.create(&quot;Fusion&quot;))    ui = MainWindow()    ui.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="/images/datawidgetmapper.gif" alt="datawidgetmapper"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> Model </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5显示.9格式的PNG图片</title>
+      <link href="/qtninepatch.html"/>
+      <url>/qtninepatch.html</url>
+      
+        <content type="html"><![CDATA[<p>做过安卓开发的和使用过QQ的都知道<code>.9.png</code>这种图片格式，效果就如QQ的聊天气泡一样可以拉伸，这种格式的图片允许开发人员定义可扩展区域，当需要延伸图片以填充比图片本身更大区域时，可扩展区的内容被延展；允许开发人员定义内容显示区，用于显示文字或其他内容。目前在<code>Github</code>上有两个C++版本的，在这里我把它们都用Python实现了一遍。另外一个我也为<code>PyQt</code>提供了编译好的pyd文件。<br><a id="more"></a></p><h2 id="C-版本"><a href="#C-版本" class="headerlink" title="C++版本"></a>C++版本</h2><p>在Github开源库中搜索到两个C++版本的</p><ol><li>一个是 <a href="https://github.com/Roninsc2/NinePatchQt" target="_blank" rel="noopener">NinePatchQt</a></li><li>一个是 <a href="https://github.com/soramimi/QtNinePatch" target="_blank" rel="noopener">QtNinePatch</a></li></ol><h2 id="PyQt5版本"><a href="#PyQt5版本" class="headerlink" title="PyQt5版本"></a>PyQt5版本</h2><p>这里也分为两个版本，都是基于上面的C++源码翻译改写过来的，具体的例子见项目里面的测试代码吧。</p><ol><li><a href="https://github.com/PyQt5/PyQt/blob/master/QLabel/QtNinePatch.py" target="_blank" rel="noopener">QtNinePatch</a>是参考第一个源码编写，用法是在<code>paintEvent</code>中调用</li><li><a href="https://github.com/PyQt5/PyQt/blob/master/QLabel/QtNinePatch2.py" target="_blank" rel="noopener">QtNinePatch2</a>是参考第二个源码编写，用法是<code>pixmap = QtNinePatch.createPixmapFromNinePatchImage(self.image, self.width(), self.height())</code>直接得到一个处理好的<code>QPixmap</code>对象来使用</li></ol><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol><li>建议优先使用pyd版本的（后续提供Python3.4 3.5 3.6 3.7 编译好的32为库文件），也可以自行编译，编译步骤见下文。</li><li>其次可以使用纯python版本2的（个人觉得方便调用）</li><li>最后再考虑纯python版本1的吧</li><li>以上为个人意见，两个C++版本的写法不一样，但是核心算法应该是类似的。</li></ol><h2 id="自行编译"><a href="#自行编译" class="headerlink" title="自行编译"></a>自行编译</h2><ol><li>首先要安装好Qt、PyQt5、编译安装对应的sip、对应的VC++编译工具</li><li>用Qt Creator 打开pro文件进行编译</li><li>进入源码中的sip文件夹修改configure.py文件<pre><code># 这里是你的VC版本和对应的Qt目录中的文件夹config.platform = &quot;win32-msvc2010&quot;qt_path = &#39;D:/soft/Qt/Qt5.5.1/5.5/msvc2010&#39;</code></pre></li><li>最后执行python configure.py来编译</li></ol><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://github.com/PyQt5/PyQt/tree/master/QLabel" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/tree/master/QLabel</a></p><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QLabel/ScreenShot/NinePatchImage.gif" alt="NinePatchImage"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 图片 </tag>
+            
+            <tag> 气泡 </tag>
+            
+            <tag> .9png </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5菜单之多选功能</title>
+      <link href="/mselectmenu.html"/>
+      <url>/mselectmenu.html</url>
+      
+        <content type="html"><![CDATA[<p>有时候会遇到这种需求：在界面某个位置弹出一个菜单，其中里面的菜单项可以多选（类似配置选项），此时用<code>QMenu</code>会遇到点击一个菜单项就会自动关闭，当然可以通过其他方式实现该功能，不过这里就采用<code>QMenu</code>通过特殊的方式来实现该需求。<br><a id="more"></a></p><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>要实现的效果：</p><ol><li>菜单1</li><li>菜单2</li><li>菜单3</li><li>菜单4</li></ol><p>点击菜单1、2、3可以多选不关闭菜单</p><p>点击菜单4可以勾选，并且关闭菜单</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ol><li>设置菜单项可勾选：通过<code>QAction.setCheckable(True)</code>方法实现</li><li>设置菜单不可关闭：通过覆盖QMenu的鼠标释放<code>mouseReleaseEvent</code>方法（可直接替换或者通过<code>installEventFilter</code>安装事件过滤器实现）</li><li>在菜单的鼠标释放事件中，当点击菜单项后是通过点击点坐标来查找是否有<code>QAction</code>，然后触发对应的<code>QAction</code>。</li><li>故在没有<code>QAction</code>的地方则直接交还给<code>QMenu</code>自行处理逻辑，在有<code>QAction</code>的地方可以根据自己的需求进行处理（如上所提）</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年10月24日@author: Irony@site: https://github.com/892768447@email: 892768447@qq.com@file: 菜单多选不关闭@description: &quot;&quot;&quot;from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QMenu,\    QAction__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &quot;Copyright (c) 2018 Irony&quot;__Version__ = &quot;Version 1.0&quot;class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QVBoxLayout(self)        self.labelInfo = QLabel(self)        self.button = QPushButton(&#39;带按钮的菜单&#39;, self)        layout.addWidget(self.labelInfo)        layout.addWidget(self.button)        # 添加菜单        self._initMenu()    def _initMenu(self):        # 创建菜单        self._menu = QMenu(self.button)        # 替换menu的鼠标释放事件达到选择性不关闭菜单        self._menu.mouseReleaseEvent = self._menu_mouseReleaseEvent        self._menu.addAction(&#39;菜单1&#39;, self._checkAction)        self._menu.addAction(&#39;菜单2&#39;, self._checkAction)        self._menu.addAction(            QAction(&#39;菜单3&#39;, self._menu, triggered=self._checkAction))        action = QAction(&#39;菜单4&#39;, self._menu, triggered=self._checkAction)        # 添加自定义的属性,判断该属性可以关闭菜单        action.setProperty(&#39;canHide&#39;, True)        self._menu.addAction(action)        for action in self._menu.actions():            # 循环设置可勾选            action.setCheckable(True)        self.button.setMenu(self._menu)    def _menu_mouseReleaseEvent(self, event):        action = self._menu.actionAt(event.pos())        if not action:            # 没有找到action就交给QMenu自己处理            return QMenu.mouseReleaseEvent(self._menu, event)        if action.property(&#39;canHide&#39;):  # 如果有该属性则给菜单自己处理            return QMenu.mouseReleaseEvent(self._menu, event)        # 找到了QAction则只触发Action        action.activate(action.Trigger)    def _checkAction(self):        # 三个action都响应该函数        self.labelInfo.setText(&#39;\n&#39;.join([&#39;{}\t选中：{}&#39;.format(            action.text(), action.isChecked()) for action in self._menu.actions()]))if __name__ == &#39;__main__&#39;:    import sys    import cgitb    sys.excepthook = cgitb.enable(1, None, 5, &#39;text&#39;)    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.resize(400, 400)    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QMenu/ScreenShot/MultiSelect.gif" alt="MultiSelect"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 菜单 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>多线程之守护线程和阻塞线程</title>
+      <link href="/daemonthread.html"/>
+      <url>/daemonthread.html</url>
+      
+        <content type="html"><![CDATA[<p>如果你设置一个线程为守护线程，就表示你在说这个线程是不重要的，在进程退出的时候，不用等待这个线程退出。如果你的主线程在退出的时候，不用等待那些子线程完成，那就设置这些线程的daemon属性。<br><a id="more"></a></p><p>即在线程开始（thread.start()）之前，调用setDeamon（）函数，设定线程的daemon标志。</p><p>（thread.setDaemon(True)）就表示这个线程“不重要”。</p><p>如果你想等待子线程完成再退出，那就什么都不用做，或者显示地调用thread.setDaemon(False)，设置daemon的值为false。新的子线程会继承父线程的daemon标志。</p><p>整个Python会在所有的非守护线程退出后才会结束，即进程中没有非守护线程存在的时候才结束。</p><p>setDaemon()函数要放在start之前设置才行。</p><pre><code class="python">import threadingimport timedef func():    print(&quot;子线程开启：&quot;, time.localtime())    time.sleep(2)    print(&quot;子线程结束：&quot;, time.localtime())print(&quot;主线程开启：&quot;, time.localtime())t = threading.Thread(target=func, args=())# t.setDaemon(True)t.start()print(&quot;主线程关闭：&quot;, time.localtime())</code></pre><p>在 Python 的多线程编程中，在实例代码中经常有 thread1.join()这样的代码。那么今天咱们用实际代码来解释一下 join 函数的作用。</p><p>join的原理就是依次检验线程池中的线程是否结束，没有结束就阻塞直到线程结束，如果结束则跳转执行下一个线程的join函数。</p><p>先看看这个：</p><ol><li>阻塞主进程，专注于执行多线程中的程序。</li><li>多线程多join的情况下，依次执行各线程的join方法，前头一个结束了才能执行后面一个。</li><li>无参数，则等待到该线程结束，才开始执行下一个线程的join。</li><li>参数timeout为线程的阻塞时间，如 timeout=2 就是罩着这个线程2s 以后，就不管他了，继续执行下面的代码。</li><li>下面的例子是一次阻塞子线程，每个子线程都会等上个子线程join结束才会执行,如果注释掉t.join则会同时执行5个子线程，多线程在做网络访问的时候可以减少等待时间，那么在一个工作流程中可以将访问网络接口的情况做成多线程。</li></ol><pre><code class="python">import threading, timedef func():    print(&quot;hello world!&quot;)    time.sleep(1)print(&quot;hello main start&quot;)for i in range(5):    t = threading.Thread(target=func, args=())    print(t.getName())    t.start()    t.join()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 线程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5结合Asyncio异步</title>
+      <link href="/pyqt5asyncio.html"/>
+      <url>/pyqt5asyncio.html</url>
+      
+        <content type="html"><![CDATA[<p>今天尝试了下<a href="https://github.com/harvimt/quamash" target="_blank" rel="noopener">quamash</a>框架，该框架是一个<code>PyQt</code>的异步事件循环封装库，使用Python3+ 的<code>asyncio</code>这个异步库。在看了该项目的内容后发现只有一个简单的进度条例子，故尝试用其来下载网络图片并显示。<br><a id="more"></a></p><h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><ol><li>pip install quamash</li><li>pip install aiohttp</li><li>Python3.5+ 和 PyQt5</li></ol><p>这里使用<code>aiohttp</code>是因为它基于<code>asyncio</code>封装的网络操作库，常见的<code>get</code>、<code>post</code>等方法，不过它只支持Python3.5及以上的版本，主要是它使用了async def 这样的语法。</p><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol><li>在创建<code>QApplication</code>后随即设置替换事件循环<code>loop</code><pre><code class="python">app = QApplication(sys.argv)loop = QEventLoop(app)asyncio.set_event_loop(loop)w = Window()</code></pre></li><li>通过<code>asyncio.ensure_future(func(), loop=loop)</code>来执行某个异步函数</li></ol><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><table><thead><tr><th style="text-align:left"></th><th style="text-align:center"></th><th style="text-align:right"></th></tr></thead><tbody><tr><td style="text-align:left">Window</td><td style="text-align:center">→</td><td style="text-align:right">initSession（初始化session）</td></tr><tr><td style="text-align:left">↓</td><td style="text-align:center"></td><td style="text-align:right"></td></tr><tr><td style="text-align:left">下载按钮</td><td style="text-align:center">→</td><td style="text-align:right">doDownload（执行_doDownload方法）</td></tr><tr><td style="text-align:left">↓</td><td style="text-align:center"></td><td style="text-align:right"></td></tr><tr><td style="text-align:left">session.get（下载json数据进行解析）</td><td style="text-align:center"></td><td style="text-align:right"></td></tr><tr><td style="text-align:left">↓</td><td style="text-align:center"></td><td style="text-align:right"></td></tr><tr><td style="text-align:left">添加到界面</td><td style="text-align:center">←</td><td style="text-align:right">_doDownloadImage（对单张图片进行下载）</td></tr></tbody></table><h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年10月24日@author: Irony@site: https://github.com/892768447@email: 892768447@qq.com@file: AsyncioUiClient@description: &quot;&quot;&quot;import asynciofrom PyQt5.QtCore import Qtfrom PyQt5.QtGui import QPixmap, QMoviefrom PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton,\    QApplication, QListWidget, QListWidgetItem, QLabel, QMessageBoximport aiohttpfrom quamash import QEventLoop__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &quot;Copyright (c) 2018 Irony&quot;__Version__ = &quot;Version 1.0&quot;Url = &#39;https://www.doutula.com/api/search?keyword=%E6%9C%80%E6%96%B0%E8%A1%A8%E6%83%85&amp;mime=0&amp;page={}&#39;Headers = {    &#39;:authority&#39;: &#39;www.doutula.com&#39;,    &#39;:method&#39;: &#39;GET&#39;,    &#39;:scheme&#39;: &#39;https&#39;,    &#39;accept&#39;: &#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#39;,    &#39;accept-language&#39;: &#39;zh-CN,zh;q=0.9&#39;,    &#39;cache-control&#39;: &#39;max-age=0&#39;,    &#39;dnt&#39;: &#39;1&#39;,    &#39;upgrade-insecure-requests&#39;: &#39;1&#39;,    &#39;user-agent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.6756.400 QQBrowser/10.2.2498.400&#39;}class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QVBoxLayout(self)        self.listWidget = QListWidget(self)        self.listWidget.setSpacing(2)  # item直接的间隔        # 隐藏横向滚动条        self.listWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)        # 让list 从左到右排列        self.listWidget.setFlow(self.listWidget.LeftToRight)        # 自动换行        self.listWidget.setWrapping(True)        self.listWidget.setResizeMode(self.listWidget.Adjust)        self.buttonMsg = QPushButton(&#39;弹出提示框&#39;, self, clicked=self.showMessage)        self.buttonDown = QPushButton(&#39;下载图片&#39;, self, clicked=self.doDownload)        layout.addWidget(self.listWidget)        layout.addWidget(self.buttonMsg)        layout.addWidget(self.buttonDown)        self.currentPage = 0        self.initSession()  # 其实没必要，session主要用在需要登录的网站。缓存cookie用    def initSession(self):        async def _initSession():            # 初始化session            self.session = aiohttp.ClientSession(loop=loop)            print(self.session)        asyncio.ensure_future(_initSession(), loop=loop)    async def _doDownloadImage(self, url):        # 下载图片并添加到界面        async with self.session.get(url) as resp:            data = await resp.read()            if not data:                print(&#39;下载失败: &#39;, url)                return            path = os.path.join(&#39;tmp&#39;, os.path.basename(url))            with open(path, &#39;wb&#39;) as fp:                fp.write(data)            item = QListWidgetItem(url, self.listWidget)            image = QPixmap(path)            item.setSizeHint(image.size())            label = QLabel(self.listWidget)            label.setPixmap(image)            if path.endswith(&#39;.gif&#39;):  # 可能是动态图                label.setMovie(QMovie(path))            self.listWidget.setItemWidget(item, label)            self.listWidget.scrollToBottom()    async def _doDownload(self):        # 下载工作        if self.currentPage == -1:            QMessageBox.information(self, &#39;提示&#39;, &#39;已经没有更多了&#39;)            return        self.currentPage += 1        url = Url.format(self.currentPage)        print(&#39;get url: &#39;, url)        async with self.session.get(url, headers=Headers) as resp:            data = await resp.json()            if not data:                return            data = data.get(&#39;data&#39;, None)            if not data:                self.currentPage = -1                print(&#39;已经是最后一页了&#39;)                return            # 解析json并生成item添加到界面中            for entity in data.get(&#39;list&#39;, []):                url = entity.get(&#39;image_url&#39;, None)                if not url:                    continue                await self._doDownloadImage(url)  # 下载图片    def doDownload(self):        # 响应按钮点击调用        asyncio.ensure_future(self._doDownload(), loop=loop)    def showMessage(self):        # 显示对话框        app.aboutQt()    def closeEvent(self, event):        if not self.session.closed:            asyncio.ensure_future(self.session.close(), loop=loop)        super(Window, self).closeEvent(event)if __name__ == &#39;__main__&#39;:    import sys    import cgitb    import os    os.makedirs(&#39;tmp&#39;, exist_ok=True)    sys.excepthook = cgitb.enable(1, None, 5, &#39;text&#39;)    app = QApplication(sys.argv)    loop = QEventLoop(app)    asyncio.set_event_loop(loop)    w = Window()    w.show()    with loop:        loop.run_forever()</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="/images/pyqt5asyncio.gif" alt="pyqt5asyncio"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> Asyncio </tag>
+            
+            <tag> 异步 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5仿网页图片鼠标移动特效</title>
+      <link href="/likehtmleffect.html"/>
+      <url>/likehtmleffect.html</url>
+      
+        <content type="html"><![CDATA[<p>em，就是类似于那种游戏官网首页的图片，鼠标放上去后来回移动，图片的前景和背景错位移动。<br><a id="more"></a></p><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><ol><li>2张一样大小的透明图片，1张作为背景，一张作为前景（比如说人物）。</li><li>当鼠标往左移动时，前景人物跟着往左移动，背景往右移动</li><li>计算好偏移量（见代码中）</li></ol><p><a href="https://github.com/PyQt5/PyQt/blob/master/QLabel/ImageSlipped.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QLabel/ImageSlipped.py</a></p><h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年10月18日@author: Irony@site: https://pyqt5.com https://github.com/892768447@email: 892768447@qq.com@file: ImageSlipped@description: &quot;&quot;&quot;from PyQt5.QtGui import QPixmap, QPainterfrom PyQt5.QtWidgets import QWidget__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &quot;Copyright (c) 2018 Irony&quot;__Version__ = &quot;Version 1.0&quot;class SlippedImgWidget(QWidget):    def __init__(self, bg, fg, *args, **kwargs):        super(SlippedImgWidget, self).__init__(*args, **kwargs)        # 开启鼠标跟踪        self.setMouseTracking(True)        # 背景        self.bgPixmap = QPixmap(bg)        # 前景        self.pePixmap = QPixmap(fg)        # 最小尺寸(背景右边和下方隐藏10个像素)        size = self.bgPixmap.size()        self.setMinimumSize(size.width() - 10, size.height() - 10)        self.setMaximumSize(size.width() - 10, size.height() - 10)        # 分成10份用于鼠标移动判断        self.stepX = size.width() / 10        self.stepY = size.height() / 10        # 偏移量        self._offsets = [-4, -4, -4, -4]  # 背景(-4,-4),前景(-4,-4)    def mouseMoveEvent(self, event):        super(SlippedImgWidget, self).mouseMoveEvent(event)        pos = event.pos()        # 偏移量        offsetX = 5 - int(pos.x() / self.stepX)        offsetY = 5 - int(pos.y() / self.stepY)        self._offsets[0] = offsetX        self._offsets[1] = offsetY        self._offsets[2] = offsetX        self._offsets[3] = offsetY        # 刷新        self.update()    def paintEvent(self, event):        super(SlippedImgWidget, self).paintEvent(event)        # 绘制图形        painter = QPainter(self)        painter.setRenderHint(QPainter.Antialiasing)        # 左上角偏移5个像素画背景图片        painter.drawPixmap(            -5 + self._offsets[0],            -5 + self._offsets[1], self.bgPixmap)        # 右下角偏移5个像素画前景图片        painter.drawPixmap(            self.width() - self.pePixmap.width() + 5 - self._offsets[2],            self.height() - self.pePixmap.height() + 5 - self._offsets[3],            self.pePixmap        )if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = SlippedImgWidget(&#39;images/bg.png&#39;, &#39;images/fg.png&#39;)    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/QLabel/ScreenShot/ImageSlipped.gif" alt="ImageSlipped"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 特效 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5窗口跟随其它窗口</title>
+      <link href="/followwindow.html"/>
+      <url>/followwindow.html</url>
+      
+        <content type="html"><![CDATA[<p>要实现<code>PyQt</code>窗口跟随其它外部的窗口，能想到两点办法，一个是hook系统事件得到目标窗口的位置和大小以及是否关闭等，二是通过循环检测窗口的位置来实现。<br><a id="more"></a></p><h2 id="基于Windows定时检测目标窗口"><a href="#基于Windows定时检测目标窗口" class="headerlink" title="基于Windows定时检测目标窗口"></a>基于Windows定时检测目标窗口</h2><ol><li>利用<code>win32gui</code>模块获取目标窗口的句柄</li><li>通过句柄获取目标窗口的大小位置，并设置自己的位置</li><li>主要是检测时间，在10毫秒以下很流畅</li><li>窗口关闭是根据目标句柄无效来判断</li></ol><p><a href="https://github.com/PyQt5/PyQt/blob/master/Demo/FollowWindow.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/Demo/FollowWindow.py</a></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年10月22日@author: Irony@site: https://github.com/892768447@email: 892768447@qq.com@file: FollowWindow@description: &quot;&quot;&quot;import osfrom PyQt5.QtCore import QTimerfrom PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButtonimport win32gui__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &quot;Copyright (c) 2018 Irony&quot;__Version__ = &quot;Version 1.0&quot;class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QVBoxLayout(self)        layout.addWidget(QPushButton(&#39;test&#39;, self))        self.tmpHwnd = None        # 启动定时器检测记事本的位置大小和是否关闭        self.checkTimer = QTimer(self, timeout=self.checkWindow)        self.checkTimer.start(10)  # 10毫秒比较流畅    def checkWindow(self):        # 查找        hwnd = win32gui.FindWindow(&#39;Notepad&#39;, None)        if self.tmpHwnd and not hwnd:            # 表示记事本关闭了            self.checkTimer.stop()            self.close()  # 关闭自己            return        if not hwnd:            return        self.tmpHwnd = hwnd        # 获取位置        rect = win32gui.GetWindowRect(hwnd)        print(rect)        self.move(rect[2], rect[1])if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    # 先检测是否已有记事本打开    hwnd = win32gui.FindWindow(&#39;Notepad&#39;, None)    print(&#39;hwnd&#39;, hwnd)    if not hwnd:        # 启动记事本        os.startfile(&#39;notepad&#39;)    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/PyQt5/PyQt/raw/master/Demo/ScreenShot/FollowWindow.gif" alt="FollowWindow"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 窗口 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5动画边框阴影</title>
+      <link href="/animateshadow.html"/>
+      <url>/animateshadow.html</url>
+      
+        <content type="html"><![CDATA[<p>为子控件增加动画阴影效果，结合<code>QGraphicsDropShadowEffect</code>和<code>QPropertyAnimation</code>动态改变阴影半径达到效果，在旧版本的Qt中<code>QGraphicsDropShadowEffect</code>可能会有点问题（父控件会影响子控件）<br><a id="more"></a></p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>原理是利用QGraphicsDropShadowEffect添加边框阴影，然后使用动画不停改变阴影的模糊半径来达到效果，如图：</p><p><img src="https://github.com/PyQt5/PyQt/raw/master/QGraphicsDropShadowEffect/ScreenShot/ShadowEffect.gif" alt="ShadowEffect"></p><h2 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h2><ol><li>继承<code>QGraphicsDropShadowEffect</code>增加动态属性<code>radius</code></li><li>通过<code>setGraphicsEffect</code>方法设置控件的边框阴影</li><li>通过<code>QPropertyAnimation</code>属性动画不断改变<code>radius</code>的值并调用<code>setBlurRadius</code>更新半径值</li></ol><p><a href="https://github.com/PyQt5/PyQt/blob/master/QGraphicsDropShadowEffect/ShadowEffect.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QGraphicsDropShadowEffect/ShadowEffect.py</a></p><h2 id="自定义类"><a href="#自定义类" class="headerlink" title="自定义类"></a>自定义类</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年9月25日@author: Irony@site: https://pyqt5.com, https://github.com/892768447@email: 892768447@qq.com@file: AnimationShadowEffect@description: 边框动画阴影动画&quot;&quot;&quot;from PyQt5.QtCore import QPropertyAnimation, pyqtPropertyfrom PyQt5.QtWidgets import QGraphicsDropShadowEffect__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &#39;Copyright (c) 2018 Irony&#39;__Version__ = 1.0class AnimationShadowEffect(QGraphicsDropShadowEffect):    def __init__(self, color, *args, **kwargs):        super(AnimationShadowEffect, self).__init__(*args, **kwargs)        self.setColor(color)        self.setOffset(0, 0)        self.setBlurRadius(0)        self._radius = 0        self.animation = QPropertyAnimation(self)        self.animation.setTargetObject(self)        self.animation.setDuration(2000)  # 一次循环时间        self.animation.setLoopCount(-1)  # 永久循环        self.animation.setPropertyName(b&#39;radius&#39;)        # 插入线行值        self.animation.setKeyValueAt(0, 1)        self.animation.setKeyValueAt(0.5, 30)        self.animation.setKeyValueAt(1, 1)    def start(self):        self.animation.start()    @pyqtProperty(int)    def radius(self):        return self._radius    @radius.setter    def radius(self, r):        self._radius = r        self.setBlurRadius(r)</code></pre><h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;Created on 2018年9月25日@author: Irony@site: https://pyqt5.com, https://github.com/892768447@email: 892768447@qq.com@file: Test@description: &quot;&quot;&quot;from PyQt5.QtCore import Qtfrom PyQt5.QtGui import QPixmapfrom PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QPushButton, QLineEditfrom AnimationShadowEffect import AnimationShadowEffect  # @UnresolvedImport__Author__ = &quot;&quot;&quot;By: IronyQQ: 892768447Email: 892768447@qq.com&quot;&quot;&quot;__Copyright__ = &#39;Copyright (c) 2018 Irony&#39;__Version__ = 1.0class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QHBoxLayout(self)        # 绿色边框        labelGreen = QLabel(self, pixmap=QPixmap(&#39;1.jpg&#39;).scaled(100, 100))        layout.addWidget(labelGreen)        aniGreen = AnimationShadowEffect(Qt.darkGreen, labelGreen)        labelGreen.setGraphicsEffect(aniGreen)        aniGreen.start()        # 红色边框,圆形图片        labelRed = QLabel(self)        labelRed.setMinimumSize(100, 100)        labelRed.setMaximumSize(100, 100)        labelRed.setStyleSheet(&#39;border-image: url(1.jpg);border-radius: 50px;&#39;)        layout.addWidget(labelRed)        aniRed = AnimationShadowEffect(Qt.red, labelGreen)        labelRed.setGraphicsEffect(aniRed)        aniRed.start()        # 蓝色边框按钮        button = QPushButton(&#39;按钮&#39;, self)        aniButton = AnimationShadowEffect(Qt.blue, button)        layout.addWidget(button)        button.setGraphicsEffect(aniButton)        aniButton.start()        # 青色边框输入框        lineedit = QLineEdit(self)        aniEdit = AnimationShadowEffect(Qt.cyan, lineedit)        layout.addWidget(lineedit)        lineedit.setGraphicsEffect(aniEdit)        aniEdit.start()if __name__ == &#39;__main__&#39;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 动画 </tag>
+            
+            <tag> 阴影 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PyQt5圆形图片</title>
+      <link href="/circleimage.html"/>
+      <url>/circleimage.html</url>
+      
+        <content type="html"><![CDATA[<p>实现圆形图片的方法有很多，比如用遮罩（mask）,裁切等等。这里比较几种实现方式，选出个人认为最优的方案。<br><a id="more"></a></p><p><a href="https://github.com/PyQt5/PyQt/blob/master/QLabel/CircleImage.py" target="_blank" rel="noopener">https://github.com/PyQt5/PyQt/blob/master/QLabel/CircleImage.py</a></p><h2 id="采用mask方式"><a href="#采用mask方式" class="headerlink" title="采用mask方式"></a>采用mask方式</h2><p>具体参考 <a href="https://www.cnblogs.com/zhehan54/p/9515124.html" target="_blank" rel="noopener">【Qt】QLabel实现的圆形图像 - 米罗西 - 博客园</a></p><h2 id="画圆形遮盖（适合纯色背景）"><a href="#画圆形遮盖（适合纯色背景）" class="headerlink" title="画圆形遮盖（适合纯色背景）"></a>画圆形遮盖（适合纯色背景）</h2><p>原理是在原图片上画一个4角有颜色，中间圆形镂空的图片。</p><p><img src="/images/circleimage1.png" alt="circleimage1"></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&#39;&#39;&#39;Created on 2017年8月25日@author: Irony.&quot;[讽刺]@site: https://pyqt5.com, https://github.com/892768447@email: 892768447@qq.com@description: &#39;&#39;&#39;from PyQt5.QtCore import Qtfrom PyQt5.QtGui import QPixmap, QPainter, QPainterPathfrom PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout__Author__ = &quot;By: Irony.\&quot;[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com&quot;__Copyright__ = &quot;Copyright (c) 2017 Irony.\&quot;[讽刺]&quot;__Version__ = &quot;Version 1.0&quot;class Label(QLabel):    def __init__(self, *args, antialiasing=True, **kwargs):        super(Label, self).__init__(*args, **kwargs)        self.Antialiasing = antialiasing        self.setMaximumSize(200, 200)        self.setMinimumSize(200, 200)        self.radius = 100        #加载图片并缩放        self.image = QPixmap(&quot;head.jpg&quot;).scaled(            200, 200, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)        painter = QPainter(self.image)        if self.Antialiasing:            painter.setRenderHint(QPainter.Antialiasing, True)            painter.setRenderHint(QPainter.HighQualityAntialiasing, True)            painter.setRenderHint(QPainter.SmoothPixmapTransform, True)        path = QPainterPath()        path.addRoundedRect(            0, 0, self.width(), self.height(), self.radius, self.radius)        path.addRect(0,0,self.width(),self.height())        painter.setPen(Qt.NoPen)        painter.setBrush(Qt.green)        painter.drawPath(path)        self.setPixmap(self.image)class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QHBoxLayout(self)        layout.addWidget(Label(self))        layout.addWidget(Label(self, antialiasing=False))        self.setStyleSheet(&quot;background: black;&quot;)if __name__ == &quot;__main__&quot;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre><h2 id="使用QPainter的setCompositionMode"><a href="#使用QPainter的setCompositionMode" class="headerlink" title="使用QPainter的setCompositionMode"></a>使用QPainter的setCompositionMode</h2><p>具体参考 <a href="https://qtdream.com/topic/911/qt-%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F%E5%88%B6%E4%BD%9C%E5%B7%A5%E5%85%B7-%E6%8A%97%E9%94%AF%E9%BD%BF-%E5%8F%AF%E7%BC%A9%E6%94%BE%E7%BC%96%E8%BE%91" target="_blank" rel="noopener">Qt 圆形头像制作工具 抗锯齿 可缩放编辑</a></p><pre><code class="c++">//result_avatar_size 是我们最后生成的图片的长宽，可以是QSize(200, 200)的正圆destination_image = QImage(result_avatar_size, QImage::Format_ARGB32_Premultiplied);//在黑色的正方形中间画一个透明的圆，作为头像遮罩QPainter painter(&amp;destination_image);painter.setRenderHint(QPainter::Antialiasing);//全涂黑painter.fillRect(destination_image.rect(), QBrush(Qt::black, Qt::SolidPattern));painter.setCompositionMode(QPainter::CompositionMode_SourceOut);painter.setPen(Qt::NoPen);painter.setBrush(QBrush(Qt::transparent, Qt::SolidPattern));//画透明区域painter.drawEllipse(destination_image.rect());</code></pre><h2 id="使用QPainter的切割方法（推荐）"><a href="#使用QPainter的切割方法（推荐）" class="headerlink" title="使用QPainter的切割方法（推荐）"></a>使用QPainter的切割方法（推荐）</h2><p>利用<code>QPainter.setClipPath</code>方法切割一个圆形的<code>QPainterPath</code></p><p><img src="/images/circleimage2.png" alt="circleimage2"></p><pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&#39;&#39;&#39;Created on 2017年8月25日@author: Irony.&quot;[讽刺]@site: https://pyqt5.com, https://github.com/892768447@email: 892768447@qq.com@file: @description: &#39;&#39;&#39;from PyQt5.QtCore import Qtfrom PyQt5.QtGui import QPixmap, QPainter, QPainterPath, QPenfrom PyQt5.QtWidgets import QLabel, QWidget, QHBoxLayout__Author__ = &quot;By: Irony.\&quot;[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com&quot;__Copyright__ = &quot;Copyright (c) 2017 Irony.\&quot;[讽刺]&quot;__Version__ = &quot;Version 1.0&quot;class Label(QLabel):    def __init__(self, *args, antialiasing=True, **kwargs):        super(Label, self).__init__(*args, **kwargs)        self.Antialiasing = antialiasing        self.setMaximumSize(200, 200)        self.setMinimumSize(200, 200)        self.radius = 100        #####################核心实现#########################        self.target = QPixmap(self.size())  # 大小和控件一样        self.target.fill(Qt.transparent)  # 填充背景为透明        p = QPixmap(&quot;head.jpg&quot;).scaled(  # 加载图片并缩放和控件一样大            200, 200, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)        painter = QPainter(self.target)        if self.Antialiasing:            # 抗锯齿            painter.setRenderHint(QPainter.Antialiasing, True)            painter.setRenderHint(QPainter.HighQualityAntialiasing, True)            painter.setRenderHint(QPainter.SmoothPixmapTransform, True)#         painter.setPen(# 测试黑色圆圈#             QPen(Qt.black, 5, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))        path = QPainterPath()        path.addRoundedRect(            0, 0, self.width(), self.height(), self.radius, self.radius)        #**** 切割为圆形 ****#        painter.setClipPath(path)#         painter.drawPath(path)  # 测试黑色圆圈        painter.drawPixmap(0, 0, p)        self.setPixmap(self.target)        #####################核心实现#########################class Window(QWidget):    def __init__(self, *args, **kwargs):        super(Window, self).__init__(*args, **kwargs)        layout = QHBoxLayout(self)        layout.addWidget(Label(self))        layout.addWidget(Label(self, antialiasing=False))        self.setStyleSheet(&quot;background: black;&quot;)if __name__ == &quot;__main__&quot;:    import sys    from PyQt5.QtWidgets import QApplication    app = QApplication(sys.argv)    w = Window()    w.show()    sys.exit(app.exec_())</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 例子 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PyQt </tag>
+            
+            <tag> 圆形 </tag>
+            
+            <tag> 图片 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>异常捕获之cgitb模块</title>
+      <link href="/cgitb.html"/>
+      <url>/cgitb.html</url>
+      
+        <content type="html"><![CDATA[<p><code>cgitb</code>模块为<code>Python</code>脚本提供了一个特殊的异常管理器。名字有点误导人，它最初设计是为了以HTML格式展示cgi脚本的大量异常信息。后来，他扩展为也可以展示纯文本信息。该模块激活后，如果发生了未捕获的异常，将会展示格式化的输出报告。该报告包括源代码每一层的回溯，以及当前执行程序的参数和局部变量。以及，你可以选择将这些信息存到一个文件里，而不是发送到浏览器。<br><a id="more"></a></p><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>当编辑器中无法显示错误信息时，尤其是<code>PyQt</code>，可以尝试在cmd中运行代码，或者使用此模块来得到错误信息。</p><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="cgitb-enable"><a href="#cgitb-enable" class="headerlink" title="cgitb.enable"></a>cgitb.enable</h3><pre><code class="python">cgitb.enable(display=1, logdir=None, context=5, format=&quot;html&quot;)</code></pre><p>参数说明</p><ol><li>display 1，发送至浏览器；0， 不发送</li><li>logdir 如果有的话，写到该目录下</li><li>context 显示错误代码周围的代码行数</li><li>format 是否显示为HTML，除了’html’之外的所有值，都会显示为纯文本</li></ol><h3 id="cgitb-handle"><a href="#cgitb-handle" class="headerlink" title="cgitb.handle"></a>cgitb.handle</h3><pre><code class="python">cgitb.handle(info=None)</code></pre><p>参数说明</p><ol><li>如果你想用cgitb处理异常，你可以调用这个函数。</li><li>info 应当是含有异常类型、异常值和traceback对象的三元组</li><li>如同sys.exc_info()返回的那样。如果不提供info，则从sys.exc_info中获取。</li></ol><h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>以下代码放在最开始执行</p><pre><code class="python">import cgitbimport syssys.excepthook = cgitb.Hook(1, None, 5, sys.stderr, &#39;text&#39;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 异常 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
