@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pyqt5.com/suggesteditor.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/viewapi.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/viewpyindesigner.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/virtualenvpy.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/webviewnew.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
     <loc>https://pyqt5.com/QPropertyAnimation.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
@@ -34,6 +49,9 @@
     <loc>https://pyqt5.com/followwindow.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
+    <loc>https://pyqt5.com/issignalconnected.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
     <loc>https://pyqt5.com/jumpslider.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
@@ -53,9 +71,6 @@
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/pyqt5asyncio.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/issignalconnected.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/pyqt_get_subprocess_pipeline.html</loc>
@@ -95,21 +110,6 @@
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/studynotes.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/suggesteditor.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/viewapi.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/viewpyindesigner.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/virtualenvpy.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/webviewnew.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>
 </urlset>
