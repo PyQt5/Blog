@@ -34,9 +34,6 @@
     <loc>https://pyqt5.com/followwindow.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
-    <loc>https://pyqt5.com/issignalconnected.html</loc>
-    <lastmod>2019-10-21</lastmod>
-  </url>  <url>
     <loc>https://pyqt5.com/jumpslider.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
@@ -56,6 +53,9 @@
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/pyqt5asyncio.html</loc>
+    <lastmod>2019-10-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/issignalconnected.html</loc>
     <lastmod>2019-10-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/pyqt_get_subprocess_pipeline.html</loc>
