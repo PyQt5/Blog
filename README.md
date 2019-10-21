@@ -9,11 +9,11 @@ https://pyqt5.com
 ## 部署结果
 部署状态 | 集成结果 | 参考值
 ---|---|---
-完成时间 | 2019-10-21 22:50:23 | yyyy-mm-dd hh:mm:ss
+完成时间 | 2019-10-21 22:52:00 | yyyy-mm-dd hh:mm:ss
 部署环境 | linux + stable | window \| linux + stable
 部署类型 | push | push \| pull_request \| api \| cron
 仓库地址 | PyQt5/blog | owner_name/repo_name
-提交分支 | 9ad76b83967c0e07209b68879aeb1d8156b51f6d | hash 16位
-提交信息 | 超时 |
-Job ID   | 600779660 |
-Job NUM  | 100.1 |
+提交分支 | 3a9654876efcfa3809d4ed4d0ff52eb8b73fd9bb | hash 16位
+提交信息 | 超时时间 |
+Job ID   | 600779298 |
+Job NUM  | 99.1 |
