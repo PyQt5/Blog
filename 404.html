@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="PyQt5">
 <meta property="og:description" content=".article-header {         padding: 0;         padding-top: 26px;         border-left: none;         text-align: center;     }     .article-header:hover {         border-left: none;     }     .art">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-20T16:12:09.290Z">
+<meta property="og:updated_time" content="2019-10-21T10:33:54.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyQt5">
 <meta name="twitter:description" content=".article-header {         padding: 0;         padding-top: 26px;         border-left: none;         text-align: center;     }     .article-header:hover {         border-left: none;     }     .art">
@@ -360,6 +360,15 @@
                                                         <!-- 菜单 -->
                                                         <li class="cl-effect-1">
                                                           
+                                                            <a href="/issues/">
+                                                                论坛讨论
+                                                            </a>
+                                                          
+                                                        </li>
+                                                        
+                                                        <!-- 菜单 -->
+                                                        <li class="cl-effect-1">
+                                                          
                                                             <a href="/faq/">
                                                                 常见问题
                                                             </a>
@@ -371,15 +380,6 @@
                                                           
                                                             <a href="/guestbook/">
                                                                 温馨留言
-                                                            </a>
-                                                          
-                                                        </li>
-                                                        
-                                                        <!-- 菜单 -->
-                                                        <li class="cl-effect-1">
-                                                          
-                                                            <a href="/about/">
-                                                                关于社区
                                                             </a>
                                                           
                                                         </li>
@@ -495,11 +495,11 @@
                 
                     <li><a href="/tags/">分类标签</a></li>
                 
+                    <li><a href="/issues/">论坛讨论</a></li>
+                
                     <li><a href="/faq/">常见问题</a></li>
                 
                     <li><a href="/guestbook/">温馨留言</a></li>
-                
-                    <li><a href="/about/">关于社区</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -530,10 +530,11 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="个人签名"/>
 </nav>
 
-      <div class="body-wrap"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/404.html" class="article-date">
+      <div class="body-wrap">
+    <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+      
+        <div class="article-meta">
+          <a href="/404.html" class="article-date">
       <time datetime="2016-08-14T10:12:17.000Z" itemprop="datePublished">2016-08-14</time>
 </a>
 
@@ -541,14 +542,14 @@
 
 
 
-    </div>
-  
+        </div>
+      
 
-   <!-- 文章主内容 -->
-  
-          <div id="article-content" class="article-entry" itemprop="articleBody">
-			  
-				  <style>
+       <!-- 文章主内容 -->
+      
+              <div id="article-content" class="article-entry" itemprop="articleBody">
+                  
+                      <style>
     .article-meta { display: none; }
     #container .article .article-title { padding-right: 0; }
     .article-header {
@@ -568,8 +569,8 @@
 
 
 <!-- 标签云、关于博主-->
-			  
-			<style type="text/css">
+                  
+                <style type="text/css">
     .article-header {
         padding: 0;
         padding-top: 26px;
@@ -652,29 +653,29 @@ $(document).ready(function () {
   }
 }); 
 </script>
-		</div>
+            </div>
+          
       
-  
+        
+
+
+
+      
+    </article>
     
 
 
+    
 
-  
-</article>
+    
 
+    
 
-
-
-
-
-
-
-
-
-    <script>
-        
-    </script>
-
+    
+        <script>
+            
+        </script>
+    
 </div>
       <footer id="footer">
     <div class="outer">
@@ -857,7 +858,7 @@ $(document).ready(function () {
 
     function is_home(){
       var url = window.location.pathname;
-      if(url == '/'){
+      if(url == '/' || url.indexOf('/issues/') > -1){
         return true;
       }
       return false;

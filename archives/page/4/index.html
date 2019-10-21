@@ -359,6 +359,15 @@
                                                         <!-- 菜单 -->
                                                         <li class="cl-effect-1">
                                                           
+                                                            <a href="/issues/">
+                                                                论坛讨论
+                                                            </a>
+                                                          
+                                                        </li>
+                                                        
+                                                        <!-- 菜单 -->
+                                                        <li class="cl-effect-1">
+                                                          
                                                             <a href="/faq/">
                                                                 常见问题
                                                             </a>
@@ -370,15 +379,6 @@
                                                           
                                                             <a href="/guestbook/">
                                                                 温馨留言
-                                                            </a>
-                                                          
-                                                        </li>
-                                                        
-                                                        <!-- 菜单 -->
-                                                        <li class="cl-effect-1">
-                                                          
-                                                            <a href="/about/">
-                                                                关于社区
                                                             </a>
                                                           
                                                         </li>
@@ -494,11 +494,11 @@
                 
                     <li><a href="/tags/">分类标签</a></li>
                 
+                    <li><a href="/issues/">论坛讨论</a></li>
+                
                     <li><a href="/faq/">常见问题</a></li>
                 
                     <li><a href="/guestbook/">温馨留言</a></li>
-                
-                    <li><a href="/about/">关于社区</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -1020,7 +1020,7 @@
 
     function is_home(){
       var url = window.location.pathname;
-      if(url == '/'){
+      if(url == '/' || url.indexOf('/issues/') > -1){
         return true;
       }
       return false;
