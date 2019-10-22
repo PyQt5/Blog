@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pyqt5.com/QPropertyAnimation.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/animateshadow.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/bindsignals.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/calljava.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/cgitb.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/circleimage.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/daemonthread.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/datawidgetmapper.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/ffmpeghls.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/flipwidgetanimation.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/followwindow.html</loc>
+    <lastmod>2019-10-22</lastmod>
+  </url>  <url>
     <loc>https://pyqt5.com/issignalconnected.html</loc>
     <lastmod>2019-10-22</lastmod>
   </url>  <url>
@@ -77,39 +110,6 @@
     <lastmod>2019-10-22</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/webviewnew.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/QPropertyAnimation.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/animateshadow.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/bindsignals.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/calljava.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/cgitb.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/circleimage.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/daemonthread.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/datawidgetmapper.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/ffmpeghls.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/flipwidgetanimation.html</loc>
-    <lastmod>2019-10-22</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/followwindow.html</loc>
     <lastmod>2019-10-22</lastmod>
   </url>
 </urlset>
