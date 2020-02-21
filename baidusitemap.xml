@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pyqt5.com/qtninepatch.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/qtwebjs.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/read_open_source.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/rlatticeeffect.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/runnablesignal_625781186.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/shadowradius.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/showframe.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/speedgithub.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/studynotes.html</loc>
+    <loc>https://pyqt5.com/processinclass.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/suggesteditor.html</loc>
@@ -64,7 +40,7 @@
     <loc>https://pyqt5.com/daemonthread.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
-    <loc>https://pyqt5.com/datawidgetmapper.html</loc>
+    <loc>https://pyqt5.com/datawidgetmapper_625781186.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/equal_str_width_625781186.html</loc>
@@ -94,9 +70,6 @@
     <loc>https://pyqt5.com/pageswitching.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
-    <loc>https://pyqt5.com/processinclass.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
     <loc>https://pyqt5.com/pyqt5_hook_key_625781186.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
@@ -113,6 +86,33 @@
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/python_statemachine_625781186.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/qtninepatch.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/qtwebjs.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/read_open_source.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/rlatticeeffect.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/runnablesignal_625781186.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/shadowradius.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/showframe.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/speedgithub.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/studynotes.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>
 </urlset>
