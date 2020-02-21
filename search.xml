@@ -138,8 +138,8 @@
     
     <entry>
       <title>python 获取子进程print信息 　</title>
-      <link href="/pyqt_get_subprocess_pipeline.html"/>
-      <url>/pyqt_get_subprocess_pipeline.html</url>
+      <link href="/pyqt_get_subprocess_pipeline_625781186.html"/>
+      <url>/pyqt_get_subprocess_pipeline_625781186.html</url>
       
         <content type="html"><![CDATA[<p>在PyQt中使用子线程读取子进程Python脚本的print输出流内容。</p><a id="more"></a><p>问题所在：</p><p><img src="https://i.loli.net/2019/05/24/5ce793171984f27031.png" alt="image.png"></p><p>如果模块都由自己开发， 正常操作 </p><p><img src="https://i.loli.net/2019/05/24/5ce7933994a0090037.png" alt="image.png"></p><p>但是因为不能改, 所以只能拦截：<br>代码：</p><pre><code class="python">pythonPath = self.pythonPath_cb.currentText()if suffix == &quot;py&quot;:    # 首次    self.pyCommand = [pythonPath, path]    self.modifiedReloadPython(path)def modifiedReloadPython(self, path_):    os.chdir(os.path.dirname(path_))    # 子进程调用    self.p = subprocess.Popen(self.pyCommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)    # self.stdoutWorker.p = self.p    self.stdoutWorker = Worker(self.p)    self.stdoutWorker.stdout_signal.connect(lambda x: self.error_te.append(&quot;PYDEBUG:\n&quot; + x))    self.stdoutWorker.start()class Worker(QThread):    stdout_signal = pyqtSignal(str)    def __init__(self, p, parent=None):        super().__init__(parent)        self.p = p    def run(self):        while True:            QApplication.processEvents()            if self.p is not None:                line = self.p.stdout.readline()                # line = line.strip()                if line != b&#39;&#39;:                    try:                        info = line.decode()                        self.stdout_signal.emit(info)                    except:                        self.stdout_signal.emit(repr(line))</code></pre>]]></content>
       
@@ -331,8 +331,8 @@
     
     <entry>
       <title>python 拷贝虚拟环境(一) 　</title>
-      <link href="/virtualenvpy.html"/>
-      <url>/virtualenvpy.html</url>
+      <link href="/virtualenvpy_625781186.html"/>
+      <url>/virtualenvpy_625781186.html</url>
       
         <content type="html"><![CDATA[<p>通常来说 ,  刚开始使用python的时候都是把包装到全局路径 , 随着各个项目安装的包越来越多 , 之后每开始一个项目 , pycharm创建索引的时间都越来越漫长 , 所以不可避免得开始使用虚拟环境。<br>经过一番了解 ，虚拟环境的优点有这些：</p><ul><li>改善 pycharm 索引时间;</li><li>各个项目的库不会冲突；</li><li>理论上虚拟环境可以给同版本的操作系统使用(未试验过);</li><li>pip freeze &gt; requestment.txt 导出的依赖清晰;</li><li>各个版本的python共存;</li><li>…<a id="more"></a></li></ul><p>python虚拟环境库除了自带的venv , 还有三方库<code>virtualenv</code> , 此外 在<code>virtualenv</code>基础上又开发了<code>virtualenvwrapper(virtualenvwrapper_win)</code> 来管理</p><p>本文基于<code>virtualenvwrapper</code> 创建的虚拟环境来讲解.</p><pre><code>以下是收集的一些virtualenvwrapper配置教程:# linux平台https://www.cnblogs.com/netfoxman/p/5994697.html# window平台https://blog.csdn.net/shaququ/article/details/54292043  　https://blog.csdn.net/iaau0908/article/details/54021518</code></pre><p>虚拟环境创建多了我们就会发现 ,<br>有时候使用相同版本的环境,一些常用的库是需要重新安装的,<br>那么能不能创建一个基础环境, 默认拥有这些库, 然后在这个基础环境上继续安装三方库呢 ?</p><p>本文经过试验发现是可行的:</p><ol><li><p>创建基础虚拟环境 <code>mkvirtualenv &lt;环境名称&gt; [-p空格python其他版本的解释器路径]</code>.  例如 <code>mkvirtualenv py34 -p c:\Python34\python.exe</code></p></li><li><p>切换到虚拟环境<code>workon py34</code> , 然后安装一下三方库, 然后复制<code>py34</code>这个文件夹备份一下 ;</p></li><li>接着复制这个<code>py34</code>文件夹, 把复制后的文件夹改名为我们需要需要的文件夹例如<code>new34</code></li><li>进入<code>new34文件夹</code>, 用任意编辑器全路径搜索<code>py34</code>(替换虚拟环境的路径)</li><li>删除<code>new34/Scripts</code>下的<code>pip.exe, pip3.exe, pip3.x.exe, easy_install.exe</code>(因为安装路径硬编码到这里面了, 改不了, 需要重新安装)</li><li><a href="https://blog.csdn.net/douniwan007009/article/details/81463958" target="_blank" rel="noopener">https://blog.csdn.net/douniwan007009/article/details/81463958</a> 按方式二 , 源码安装 <code>setuptools</code> 后再用<code>easy_install pip</code> 安装pip后 , 完成 ;<br>如果有问题, 就继续按照方式一的源码安装pip;</li><li>在<code>new34</code>环境下 用<code>pip show 三方库</code> 来看一些库的位置, 确保正确.</li></ol>]]></content>
       
