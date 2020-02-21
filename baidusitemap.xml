@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pyqt5.com/processinclass.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/suggesteditor.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/viewapi.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/viewpyindesigner_625781186.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/virtualenvpy_625781186.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
-    <loc>https://pyqt5.com/webviewnew.html</loc>
-    <lastmod>2020-02-21</lastmod>
-  </url>  <url>
     <loc>https://pyqt5.com/QPropertyAnimation.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
@@ -70,6 +52,9 @@
     <loc>https://pyqt5.com/pageswitching.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
+    <loc>https://pyqt5.com/processinclass_625781186.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
     <loc>https://pyqt5.com/pyqt5_hook_key_625781186.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
@@ -113,6 +98,21 @@
     <lastmod>2020-02-21</lastmod>
   </url>  <url>
     <loc>https://pyqt5.com/studynotes.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/suggesteditor.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/viewapi.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/viewpyindesigner_625781186.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/virtualenvpy_625781186.html</loc>
+    <lastmod>2020-02-21</lastmod>
+  </url>  <url>
+    <loc>https://pyqt5.com/webviewnew.html</loc>
     <lastmod>2020-02-21</lastmod>
   </url>
 </urlset>
