@@ -360,8 +360,8 @@
     
     <entry>
       <title>QRunnable线程池发信号</title>
-      <link href="/runnablesignal.html"/>
-      <url>/runnablesignal.html</url>
+      <link href="/runnablesignal_625781186.html"/>
+      <url>/runnablesignal_625781186.html</url>
       
         <content type="html"><![CDATA[<p>因为只有继承<code>QObject</code>的类才能有信号和自定义信号，而<code>QRunnable</code>并不是继承自<code>QObject</code>，也不能用多继承的方式，这里考虑定义个全局的QObject变量用来存放一些定义好的可复用的信号。<br><a id="more"></a></p><p>pools 是 <code>QThreadPool</code> 实例</p><h2 id="看图说话"><a href="#看图说话" class="headerlink" title="看图说话"></a>看图说话</h2><ol><li><img src="/images/runnablesignal1.png" alt="runnablesignal1"></li><li>定义一个全局信号类<br><img src="/images/runnablesignal2.png" alt="runnablesignal2"></li><li>在QRunnable 中发送<br><img src="/images/runnablesignal3.png" alt="runnablesignal3"></li></ol>]]></content>
       
