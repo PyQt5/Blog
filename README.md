@@ -9,11 +9,11 @@ https://pyqt5.com
 ## 部署结果
 部署状态 | 集成结果 | 参考值
 ---|---|---
-完成时间 | 2020-02-21 23:23:56 | yyyy-mm-dd hh:mm:ss
+完成时间 | 2020-02-21 23:25:12 | yyyy-mm-dd hh:mm:ss
 部署环境 | linux + stable | window \| linux + stable
 部署类型 | push | push \| pull_request \| api \| cron
 仓库地址 | PyQt5/blog | owner_name/repo_name
-提交分支 | 56c48123afa2c5c8c84b4eccd91b80b896ec03cd | hash 16位
-提交信息 | Rename equal_str_width.md to equal_str_width_625781186.md |
-Job ID   | 653502645 |
-Job NUM  | 117.1 |
+提交分支 | 9952a3eeec8873819ba8c0096f9b904ccb463888 | hash 16位
+提交信息 | Rename viewpyindesigner.md to viewpyindesigner_625781186.md |
+Job ID   | 653503116 |
+Job NUM  | 118.1 |
